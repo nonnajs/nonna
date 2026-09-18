@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "experimentalDecorators": true,
+        "strict": false,
+        "skipLibCheck": true,
+        "noEmit": true
+    },
+    "include": ["injector-like.ts", "app/additional-source.ts"]
+}
