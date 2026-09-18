@@ -1,0 +1,29 @@
+{
+    "extends": "@tsconfig/node-lts-strictest/tsconfig.json",
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "dist"],
+    "compilerOptions": {
+        "lib": ["esnext", "dom"],
+        "incremental": true,
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": false,
+        "sourceMap": true,
+        "allowJs": true,
+        "checkJs": false,
+        "noEmit": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "resolveJsonModule": true,
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "skipLibCheck": true,
+        "exactOptionalPropertyTypes": false,
+        "esModuleInterop": true,
+        "noImplicitAny": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
+}

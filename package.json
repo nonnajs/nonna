@@ -1,0 +1,57 @@
+{
+    "name": "nonna-monorepo",
+    "version": "1.0.0",
+    "description": "Nonna - High-performance, zero-reflection, runtime-agnostic Dependency Injection framework and AOT compiler for modern JavaScript and TypeScript",
+    "author": "Manuel Santos <ney.br.santos@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "keywords": [
+        "nonna",
+        "di",
+        "dependency-injection",
+        "ioc",
+        "aot",
+        "compiler",
+        "typescript",
+        "nodejs",
+        "deno",
+        "bun"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nodejs-boot/nonna.git"
+    },
+    "engines": {
+        "node": ">=18",
+        "pnpm": ">=8"
+    },
+    "scripts": {
+        "build": "turbo run build",
+        "build:clean": "turbo run clean:build",
+        "clean": "turbo run clean:build && rimraf node_modules",
+        "dev": "turbo run dev",
+        "lint": "turbo run lint",
+        "lint:fix": "turbo run lint:fix",
+        "format:check": "prettier --check '**/*.{ts,js,json,md,yaml,yml}'",
+        "format:fix": "prettier --write '**/*.{ts,js,json,md,yaml,yml}'",
+        "test": "turbo run test",
+        "tsc": "turbo run tsc"
+    },
+    "devDependencies": {
+        "@tsconfig/node-lts-strictest": "^18.12.1",
+        "@types/node": "^22.14.1",
+        "@typescript-eslint/eslint-plugin": "^8.44.1",
+        "@typescript-eslint/parser": "^8.44.1",
+        "eslint": "^9.0.0",
+        "eslint-config-prettier": "^10.1.8",
+        "node-test-reporter": "^1.2.0",
+        "prettier": "^2.8.3",
+        "prettier-plugin-organize-imports": "^3.2.4",
+        "rimraf": "^5.0.5",
+        "ts-node": "^10.9.2",
+        "tsup": "^8.5.1",
+        "turbo": "^2.3.3",
+        "typescript": "^5.9.2"
+    },
+    "packageManager": "pnpm@10.17.1"
+}

@@ -1,0 +1,11 @@
+packages:
+    - "packages/*"
+    - "compiler"
+    - "di"
+    - "react"
+    - "vue"
+    - "svelte"
+    - "web-components"
+    - "stencil"
+    - "vite-plugin"
+    - "samples/*"
