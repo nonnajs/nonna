@@ -55,7 +55,7 @@ jobs:
               id: start-monorepo-release
               uses: manusant/monorepo-release-start@v1
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.NONNA_RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
             - name: Write released packages to a manifest file
               run: echo '${{ steps.start-monorepo-release.outputs.releasedPackages }}' > release.manifest.json
@@ -79,4 +79,4 @@ jobs:
                   version: ${{ steps.start-monorepo-release.outputs.version }}
                   previousPackages: ${{ steps.start-monorepo-release.outputs.oldPackages }}
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.NONNA_RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
