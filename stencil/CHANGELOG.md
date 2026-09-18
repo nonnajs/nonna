@@ -1,5 +1,14 @@
 # @nonnajs/stencil
 
+## 2.0.1
+
+### Patch Changes
+
+-   c35af11: Testing full cicd release process
+-   Updated dependencies
+    -   @nonnajs/di@1.1.1
+    -   @nonnajs/web-components@2.0.1
+
 ## 2.0.0
 
 ### Minor Changes

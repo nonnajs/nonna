@@ -1,5 +1,11 @@
 # @nonnajs/di
 
+## 1.1.1
+
+### Patch Changes
+
+-   c35af11: Testing full cicd release process
+
 ## 1.1.0
 
 ### Minor Changes

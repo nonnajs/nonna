@@ -1,6 +1,6 @@
 {
     "name": "@nonnajs/vue",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Vue bindings for @nonnajs/di - a <NonnaProvider> component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() composables for zero-reflection dependency injection in Vue 3 apps.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
