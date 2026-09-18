@@ -1,0 +1,66 @@
+{
+    "name": "@nonna/vite-plugin",
+    "version": "1.0.0",
+    "description": "Vite plugin for @nonna/di - aliases the handful of Node.js builtins @nonna/di's published bundle statically imports (async_hooks, fs/promises, path, url) to minimal browser-safe shims, so browser apps (React, Vue, ...) can bundle @nonna/di without a bundler error.",
+    "author": "Manuel Santos <ney.br.santos@gmail.com>",
+    "license": "MIT",
+    "keywords": [
+        "di",
+        "dependency-injection",
+        "ioc",
+        "nonna",
+        "vite",
+        "vite-plugin",
+        "browser",
+        "shim"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nodejs-boot/node-boot.git"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        },
+        "./package.json": "./package.json"
+    },
+    "scripts": {
+        "build": "tsup",
+        "clean:build": "rimraf ./dist",
+        "lint": "eslint . --ext .js,.ts",
+        "lint:fix": "pnpm lint --fix",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write .",
+        "test": "node --test --test-reporter node-test-reporter --require ts-node/register test/**/*.{test,it.test}.ts",
+        "pretest:coverage": "mkdir -p coverage",
+        "test:coverage": "node --experimental-test-coverage --test-coverage-include='src/**/*.ts' --test-coverage-exclude='src/**/*.test.ts' --test-coverage-exclude='src/**/*.spec.ts' --test --test-reporter node-test-reporter --test-reporter-destination stdout --test-reporter lcov --test-reporter-destination coverage/lcov.info --require ts-node/register test/**/*.{test,it.test}.ts",
+        "tsc": "tsc --noEmit"
+    },
+    "peerDependencies": {
+        "vite": ">=4"
+    },
+    "devDependencies": {
+        "vite": "^5.4.0",
+        "tsup": "^8.5.0"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ]
+}
