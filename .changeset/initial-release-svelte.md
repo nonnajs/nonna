@@ -1,5 +1,5 @@
 ---
-"@nonnajs/svelte": major
+"@nonnajs/svelte": minor
 ---
 
 Initial release of `@nonnajs/svelte`:

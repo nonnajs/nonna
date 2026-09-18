@@ -1,5 +1,5 @@
 ---
-"@nonnajs/vite-plugin": major
+"@nonnajs/vite-plugin": minor
 ---
 
 Initial release of `@nonnajs/vite-plugin`:

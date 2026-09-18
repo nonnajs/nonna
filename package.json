@@ -44,7 +44,7 @@
         "tsc": "turbo run tsc",
         "changeset:create": "pnpm changeset",
         "release:version": "pnpm changeset version",
-        "changeset:format": "pnpm prettier --write '{compiler,di,react,vue,svelte,web-components,stencil,vite-plugin,samples/*}/*/{package.json,CHANGELOG.md}'",
+        "changeset:format": "prettier --write --ignore-unknown '{compiler,di,react,vue,svelte,web-components,stencil,vite-plugin}/**/{package.json,CHANGELOG.md}'",
         "release:status": "pnpm changeset status",
         "release:publish": "pnpm changeset publish",
         "git:prune": "git fetch -p && for branch in $(git branch -vv | grep ': gone]' | awk '{print $1}'); do git branch -D $branch; done",

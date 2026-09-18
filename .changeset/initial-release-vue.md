@@ -1,5 +1,5 @@
 ---
-"@nonnajs/vue": major
+"@nonnajs/vue": minor
 ---
 
 Initial release of `@nonnajs/vue`:

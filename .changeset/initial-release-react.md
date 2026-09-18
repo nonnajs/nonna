@@ -1,5 +1,5 @@
 ---
-"@nonnajs/react": major
+"@nonnajs/react": minor
 ---
 
 Initial release of `@nonnajs/react`:

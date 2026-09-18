@@ -1,5 +1,5 @@
 ---
-"@nonnajs/compiler": major
+"@nonnajs/compiler": minor
 ---
 
 Initial release of `@nonnajs/compiler`:

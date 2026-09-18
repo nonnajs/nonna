@@ -1,5 +1,5 @@
 ---
-"@nonnajs/web-components": major
+"@nonnajs/web-components": minor
 ---
 
 Initial release of `@nonnajs/web-components`:

@@ -1,5 +1,5 @@
 ---
-"@nonnajs/stencil": major
+"@nonnajs/stencil": minor
 ---
 
 Initial release of `@nonnajs/stencil`:

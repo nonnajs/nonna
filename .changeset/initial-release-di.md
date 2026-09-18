@@ -1,5 +1,5 @@
 ---
-"@nonnajs/di": major
+"@nonnajs/di": minor
 ---
 
 Initial release of `@nonnajs/di`:
