@@ -79,3 +79,12 @@ jobs:
                   fail_ci_if_error: false
                   verbose: true
                   flags: ${{ matrix.name }}
+
+            - name: Upload test results to Codecov
+              if: ${{ !cancelled() }}
+              uses: codecov/test-results-action@v1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: nonnajs/nonna
+                  fail_ci_if_error: false
+                  flags: ${{ matrix.name }}

@@ -3,6 +3,10 @@ node_modules
 dist
 .DS_Store
 
+# ...but keep test fixture "packages" that simulate a real node_modules install
+!compiler/test/fixtures/node_modules
+!compiler/test/fixtures/node_modules/**
+
 # Stencil
 .stencil
 stencil-dist
