@@ -17,9 +17,9 @@
 
 ### Key Architectural Pillars
 
-1. **Zero Runtime Dependencies**: `@nonna/di` contains **0 external dependencies** and does not require `reflect-metadata`.
+1. **Zero Runtime Dependencies**: `@nonnajs/di` contains **0 external dependencies** and does not require `reflect-metadata`.
 2. **True Runtime Agnostic**: Operates identically on Node.js, Deno, and Bun using standard `node:async_hooks` `AsyncLocalStorage` and Web Standards.
-3. **Ahead-of-Time (AOT) Compilation**: `@nonna/compiler` statically inspects TypeScript types with the real TypeScript `TypeChecker` during build time, inferring constructor tokens without runtime reflection.
+3. **Ahead-of-Time (AOT) Compilation**: `@nonnajs/compiler` statically inspects TypeScript types with the real TypeScript `TypeChecker` during build time, inferring constructor tokens without runtime reflection.
 4. **First-Class Request Scoping**: Built-in `request` scope isolates state per asynchronous execution flow (`injector.runInScope()`), with strict safety guardrails preventing request-scoped leaks into singletons.
 5. **Deterministic Lifecycle**: Predictable `OnInit` and `OnDestroy` lifecycle hooks with reverse-order teardown and aggregated error reporting.
 6. **Pluggable & Extensible**: First-class multi-providers (`multi: true`), async factories, alias tokens, and full container inspection APIs.
@@ -36,9 +36,9 @@ Nonna was born on vacation in Rome, coded during the "cold hours" in a hotel roo
 
 Most JavaScript DI frameworks pick one of two trade-offs: lean on `reflect-metadata` + `emitDecoratorMetadata` for auto-wiring (TypeDI, InversifyJS, tsyringe) and accept the runtime reflection tax and the Deno/Bun/edge compatibility gaps that come with it, or drop auto-wiring altogether and make every dependency a manual, stringly-typed registration. Nonna is built to not have to choose:
 
--   **AOT, not reflection.** `@nonna/compiler` statically analyzes your TypeScript at build time, using the real TypeScript `TypeChecker`, and generates plain `defineDependencies(Target, [...])` calls - concrete-class dependencies are known before the process even starts. `@nonna/di`'s runtime injector never imports `typescript`, never touches `Reflect.getMetadata`, and never needs `emitDecoratorMetadata` turned on. This is enforced, not just claimed: a guardrail test fails the build if any runtime source file so much as imports `reflect-metadata` or the compiler package.
+-   **AOT, not reflection.** `@nonnajs/compiler` statically analyzes your TypeScript at build time, using the real TypeScript `TypeChecker`, and generates plain `defineDependencies(Target, [...])` calls - concrete-class dependencies are known before the process even starts. `@nonnajs/di`'s runtime injector never imports `typescript`, never touches `Reflect.getMetadata`, and never needs `emitDecoratorMetadata` turned on. This is enforced, not just claimed: a guardrail test fails the build if any runtime source file so much as imports `reflect-metadata` or the compiler package.
 -   **Genuinely runtime-agnostic.** The same injector code runs unmodified on Node.js 18+, Deno, Bun, and edge/Workers runtimes - the one platform-specific piece (request-scope propagation) is abstracted behind a one-method `ContextStorage` interface, defaulting to `AsyncLocalStorage` where available and swappable everywhere else.
--   **Zero runtime dependencies, full stop.** Not "zero besides a small polyfill" - `@nonna/di`'s `package.json` ships an empty `dependencies` object, checked by the same guardrail suite.
+-   **Zero runtime dependencies, full stop.** Not "zero besides a small polyfill" - `@nonnajs/di`'s `package.json` ships an empty `dependencies` object, checked by the same guardrail suite.
 -   **Statically-known async, everywhere.** Whether a factory or an `onInit()` is async is decided once, from the function's own shape, at registration/compile time - never by sniffing whether a call happened to return a `Promise`. That's what lets `get()` fail fast with a clear `AsyncProviderError` _before_ running a constructor whose result would've been thrown away, instead of a container that "usually works" and occasionally hands back an unresolved `Promise` where an instance was expected.
 -   **Scope violations are a build-time-shaped error, not a 3am incident.** `initialize()` walks the whole graph and rejects a singleton that transitively depends on a request-scoped provider (even through a transient hop) before your app ever accepts traffic - not the first time two concurrent requests race on a shared instance in production.
 -   **Performance work that goes past "it's fast":** integer-keyed registrations instead of `Symbol()` allocation, memoized dependency metadata instead of a `WeakMap` hit per resolution, a mutable stack + `Set` for circular-dependency tracking on the hot synchronous path, `AsyncLocalStorage` skipped entirely when nothing is request-scoped, and independent eager providers booting concurrently instead of one-at-a-time.
@@ -51,7 +51,7 @@ Most JavaScript DI frameworks pick one of two trade-offs: lean on `reflect-metad
 
 ```
 di/
-├── di/                     # @nonna/di (Runtime Container)
+├── di/                     # @nonnajs/di (Runtime Container)
 │   ├── src/
 │   │   ├── injector.ts     # Core Injector container implementation
 │   │   ├── context.ts      # AsyncLocalStorage context storage
@@ -62,7 +62,7 @@ di/
 │   │   └── types.ts        # TypeScript interfaces & types
 │   └── test/               # Runtime test suite
 │
-├── compiler/               # @nonna/compiler (AOT Dependency Compiler)
+├── compiler/               # @nonnajs/compiler (AOT Dependency Compiler)
 │   ├── src/
 │   │   ├── cli.ts          # nonna-compile binary CLI
 │   │   ├── compile.ts      # Core compiler orchestrator
@@ -71,41 +71,41 @@ di/
 │   │   └── codegen.ts      # Code generator for defineDependencies
 │   └── test/               # Compiler unit & fixture tests
 │
-├── react/                  # @nonna/react (React 18+ bindings)
-├── vue/                    # @nonna/vue (Vue 3 bindings)
-├── svelte/                 # @nonna/svelte (Svelte 5 bindings)
-├── web-components/         # @nonna/web-components (W3C Context Protocol + <nonna-provider>)
-├── stencil/                # @nonna/stencil (StencilJS bindings, built on @nonna/web-components)
-├── vite-plugin/            # @nonna/vite-plugin (Vite browser shim plugin)
+├── react/                  # @nonnajs/react (React 18+ bindings)
+├── vue/                    # @nonnajs/vue (Vue 3 bindings)
+├── svelte/                 # @nonnajs/svelte (Svelte 5 bindings)
+├── web-components/         # @nonnajs/web-components (W3C Context Protocol + <nonna-provider>)
+├── stencil/                # @nonnajs/stencil (StencilJS bindings, built on @nonnajs/web-components)
+├── vite-plugin/            # @nonnajs/vite-plugin (Vite browser shim plugin)
 │
 └── samples/                # Runnable sample applications
-    ├── sample-node/        # Pure Node.js + @nonna/compiler AOT
+    ├── sample-node/        # Pure Node.js + @nonnajs/compiler AOT
     ├── sample-node-http/   # Node.js native node:http server + request scope
     ├── sample-deno/        # Pure Deno ESM + async factory providers
     ├── sample-deno-http/   # Deno + Hono HTTP server
     ├── sample-bun/         # Pure Bun + multi-provider plugins
     ├── sample-bun-http/    # Bun native Bun.serve HTTP server
-    ├── sample-react/       # Vite + React, using @nonna/react
-    ├── sample-vue/         # Vite + Vue 3, using @nonna/vue
-    ├── sample-svelte/      # Vite + Svelte 5, using @nonna/svelte
-    ├── sample-web-components/ # Vite + vanilla Custom Elements, using @nonna/web-components
-    └── sample-stencil/     # Stencil + @nonna/stencil
+    ├── sample-react/       # Vite + React, using @nonnajs/react
+    ├── sample-vue/         # Vite + Vue 3, using @nonnajs/vue
+    ├── sample-svelte/      # Vite + Svelte 5, using @nonnajs/svelte
+    ├── sample-web-components/ # Vite + vanilla Custom Elements, using @nonnajs/web-components
+    └── sample-stencil/     # Stencil + @nonnajs/stencil
 ```
 
 ---
 
 ## Packages
 
-| Package                                     | Description                                                                                         | Version | Size       |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------- | ---------- |
-| [`@nonna/di`](./di)                         | Micro runtime DI container (zero deps, zero reflection)                                             | `1.0.0` | ~27 KB     |
-| [`@nonna/compiler`](./compiler)             | Build-time TypeScript TypeChecker AOT compiler (`nonna-compile`)                                    | `1.0.0` | Build tool |
-| [`@nonna/react`](./react)                   | React bindings - `<NonnaProvider>` + `useInjection()` hooks                                         | `1.0.0` | ~1.5 KB    |
-| [`@nonna/vue`](./vue)                       | Vue 3 bindings - `<NonnaProvider>` + `useInjection()` composables                                   | `1.0.0` | ~1.5 KB    |
-| [`@nonna/svelte`](./svelte)                 | Svelte bindings - `setInjector()` + `useInjection()` context                                        | `1.0.0` | ~1.5 KB    |
-| [`@nonna/web-components`](./web-components) | W3C Context Protocol - `<nonna-provider>` + `@inject()`/`@optionalInject()`/`@allInject()`          | `1.0.0` | ~1.5 KB    |
-| [`@nonna/stencil`](./stencil)               | StencilJS bindings - `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators (via `getElement()`) | `1.0.0` | ~0.5 KB    |
-| [`@nonna/vite-plugin`](./vite-plugin)       | Vite plugin providing browser-safe shims for Node builtins                                          | `1.0.0` | ~1.8 KB    |
+| Package                                       | Description                                                                                         | Version | Size       |
+| --------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------- | ---------- |
+| [`@nonnajs/di`](./di)                         | Micro runtime DI container (zero deps, zero reflection)                                             | `1.0.0` | ~27 KB     |
+| [`@nonnajs/compiler`](./compiler)             | Build-time TypeScript TypeChecker AOT compiler (`nonna-compile`)                                    | `1.0.0` | Build tool |
+| [`@nonnajs/react`](./react)                   | React bindings - `<NonnaProvider>` + `useInjection()` hooks                                         | `1.0.0` | ~1.5 KB    |
+| [`@nonnajs/vue`](./vue)                       | Vue 3 bindings - `<NonnaProvider>` + `useInjection()` composables                                   | `1.0.0` | ~1.5 KB    |
+| [`@nonnajs/svelte`](./svelte)                 | Svelte bindings - `setInjector()` + `useInjection()` context                                        | `1.0.0` | ~1.5 KB    |
+| [`@nonnajs/web-components`](./web-components) | W3C Context Protocol - `<nonna-provider>` + `@inject()`/`@optionalInject()`/`@allInject()`          | `1.0.0` | ~1.5 KB    |
+| [`@nonnajs/stencil`](./stencil)               | StencilJS bindings - `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators (via `getElement()`) | `1.0.0` | ~0.5 KB    |
+| [`@nonnajs/vite-plugin`](./vite-plugin)       | Vite plugin providing browser-safe shims for Node builtins                                          | `1.0.0` | ~1.8 KB    |
 
 ---
 
@@ -115,10 +115,10 @@ di/
 
 ```sh
 # Runtime container
-npm install @nonna/di
+npm install @nonnajs/di
 
 # Build-time AOT compiler (optional, recommended for TypeScript apps)
-npm install --save-dev @nonna/compiler
+npm install --save-dev @nonnajs/compiler
 ```
 
 ### Deno
@@ -127,7 +127,7 @@ npm install --save-dev @nonna/compiler
 // deno.json
 {
     "imports": {
-        "@nonna/di": "npm:@nonna/di@^1.0.0"
+        "@nonnajs/di": "npm:@nonnajs/di@^1.0.0"
     }
 }
 ```
@@ -135,8 +135,8 @@ npm install --save-dev @nonna/compiler
 ### Bun
 
 ```sh
-bun add @nonna/di
-bun add -d @nonna/compiler
+bun add @nonnajs/di
+bun add -d @nonnajs/compiler
 ```
 
 ---
@@ -147,7 +147,7 @@ bun add -d @nonna/compiler
 
 ```ts
 // src/user.repository.ts
-import {Injectable} from "@nonna/di";
+import {Injectable} from "@nonnajs/di";
 
 export interface User {
     id: string;
@@ -166,12 +166,12 @@ export class UserRepository {
 
 ```ts
 // src/user.service.ts
-import {Injectable, Optional} from "@nonna/di";
+import {Injectable, Optional} from "@nonnajs/di";
 import {UserRepository, User} from "./user.repository";
 
 @Injectable()
 export class UserService {
-    // When using @nonna/compiler, UserRepository is automatically inferred as DI token.
+    // When using @nonnajs/compiler, UserRepository is automatically inferred as DI token.
     constructor(private readonly userRepo: UserRepository) {}
 
     getUser(id: string): User | undefined {
@@ -182,7 +182,7 @@ export class UserService {
 
 ### 2. Configure AOT Dependency Compilation (Optional, Recommended)
 
-`@nonna/compiler` uses zero-configuration opinionated defaults (`tsconfig.json` → `src/__generated__/nonna-dependencies.generated.ts`):
+`@nonnajs/compiler` uses zero-configuration opinionated defaults (`tsconfig.json` → `src/__generated__/nonna-dependencies.generated.ts`):
 
 In your `package.json`:
 
@@ -202,7 +202,7 @@ Import the generated file once at application bootstrap:
 ```ts
 // src/index.ts
 import "./__generated__/nonna-dependencies.generated";
-import {Nonna} from "@nonna/di";
+import {Nonna} from "@nonnajs/di";
 import {UserService} from "./user.service";
 
 async function bootstrap() {
@@ -231,7 +231,7 @@ _(Alternatively, load metadata dynamically via `.loadBeans(["./src/__generated__
 The recommended way to configure and boot a container is the fluent `Nonna.injector()` builder. Nothing touches a real `Injector` until the terminal `build()` call - which also runs `initialize()` for you, so the returned `Injector` is already validated and eager-warm:
 
 ```ts
-import {Nonna} from "@nonna/di";
+import {Nonna} from "@nonnajs/di";
 
 const injector = await Nonna.injector()
     .withContextStorage(customContextStorage) // optional
@@ -249,7 +249,7 @@ await injector.destroy();
 This is sugar over the lower-level, imperative API, which remains fully supported for callers who want more control over exactly when each step runs:
 
 ```ts
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 
 const injector = Injector.create({
     contextStorage: customContextStorage, // optional
@@ -357,7 +357,7 @@ const plugins = injector.getAll<Plugin>(PLUGIN_TOKEN);
 #### Request Scoping Example
 
 ```ts
-import {Injectable, Injector} from "@nonna/di";
+import {Injectable, Injector} from "@nonnajs/di";
 
 @Injectable({scope: "request"})
 export class RequestContext {
@@ -452,14 +452,14 @@ injector.register({
 ### 5. Decorators & Explicit Injections
 
 ```ts
-import {Injectable, Service, Inject, Optional} from "@nonna/di";
+import {Injectable, Service, Inject, Optional} from "@nonnajs/di";
 
 export const METRICS_CLIENT = Symbol("METRICS_CLIENT");
 
 @Injectable({scope: "singleton", eager: false})
 export class PaymentService {
     constructor(
-        // Inferred automatically by @nonna/compiler
+        // Inferred automatically by @nonnajs/compiler
         private readonly userRepo: UserRepository,
 
         // Explicit symbol or string token
@@ -485,9 +485,9 @@ There's no AOT/type inference for fields, unlike constructor parameters - a fiel
 
 ---
 
-### 6. Ahead-of-Time (AOT) Compiler (`@nonna/compiler`)
+### 6. Ahead-of-Time (AOT) Compiler (`@nonnajs/compiler`)
 
-`@nonna/compiler` eliminates the need for `reflect-metadata` and manual `@Inject()` decorators on concrete classes.
+`@nonnajs/compiler` eliminates the need for `reflect-metadata` and manual `@Inject()` decorators on concrete classes.
 
 #### How It Works
 
@@ -514,8 +514,8 @@ npx nonna-compile -p tsconfig.build.json -o custom/output/deps.generated.ts
 #### Generated Output Example
 
 ```ts
-// AUTO-GENERATED by @nonna/compiler - do not edit by hand.
-import {defineDependencies} from "@nonna/di";
+// AUTO-GENERATED by @nonnajs/compiler - do not edit by hand.
+import {defineDependencies} from "@nonnajs/di";
 import {UserService} from "./user.service";
 import {UserRepository} from "./user.repository";
 import {LoggerService} from "./logger.service";
@@ -528,7 +528,7 @@ defineDependencies(UserService, [UserRepository, LoggerService, {token: Notifica
 ### 7. Lifecycle Management
 
 ```ts
-import {Injectable, OnInit, OnDestroy} from "@nonna/di";
+import {Injectable, OnInit, OnDestroy} from "@nonnajs/di";
 
 @Injectable()
 export class DatabasePool implements OnInit, OnDestroy {
@@ -581,17 +581,17 @@ The repository includes 9 runnable sample applications verifying full compatibil
 
 | Sample                      | Runtime           | Transport / Architecture                  | Features Tested                                                                                           | Directory                                                             |
 | --------------------------- | ----------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **`sample-node`**           | Node.js (18+)     | CLI / Pure App                            | `@nonna/compiler` AOT, request scopes, optional deps, `OnDestroy`                                         | [`di/samples/sample-node`](./samples/sample-node)                     |
+| **`sample-node`**           | Node.js (18+)     | CLI / Pure App                            | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                         | [`di/samples/sample-node`](./samples/sample-node)                     |
 | **`sample-node-http`**      | Node.js (18+)     | Native `node:http`                        | Zero-framework HTTP server, request scoping per incoming request, router                                  | [`di/samples/sample-node-http`](./samples/sample-node-http)           |
 | **`sample-deno`**           | Deno (1.40+, 2.x) | CLI / Pure App                            | Deno ESM, async database factory provider, task runner scopes                                             | [`di/samples/sample-deno`](./samples/sample-deno)                     |
 | **`sample-deno-http`**      | Deno (1.40+, 2.x) | Hono / `Deno.serve`                       | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [`di/samples/sample-deno-http`](./samples/sample-deno-http)           |
 | **`sample-bun`**            | Bun (1.0+)        | CLI / Pure App                            | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [`di/samples/sample-bun`](./samples/sample-bun)                       |
 | **`sample-bun-http`**       | Bun (1.0+)        | Native `Bun.serve`                        | Native Bun Web Standards HTTP server, request-scoped controller & router                                  | [`di/samples/sample-bun-http`](./samples/sample-bun-http)             |
-| **`sample-react`**          | Browser (Vite)    | React 18 + `@nonna/react`                 | `<NonnaProvider>`, all four hooks, field injection, multi-providers                                       | [`di/samples/sample-react`](./samples/sample-react)                   |
-| **`sample-vue`**            | Browser (Vite)    | Vue 3 + `@nonna/vue`                      | `<NonnaProvider>`, composables, field injection, multi-providers                                          | [`di/samples/sample-vue`](./samples/sample-vue)                       |
-| **`sample-svelte`**         | Browser (Vite)    | Svelte 5 + `@nonna/svelte`                | `setInjector()`, context functions, field injection, multi-providers                                      | [`di/samples/sample-svelte`](./samples/sample-svelte)                 |
-| **`sample-web-components`** | Browser (Vite)    | Custom Elements + `@nonna/web-components` | W3C Context Protocol, `<nonna-provider>`, `@inject()`/`@optionalInject()`/`@allInject()`, field injection | [`di/samples/sample-web-components`](./samples/sample-web-components) |
-| **`sample-stencil`**        | Browser (Stencil) | StencilJS + `@nonna/stencil`              | `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators, `<nonna-provider>` interop, multi-providers    | [`di/samples/sample-stencil`](./samples/sample-stencil)               |
+| **`sample-react`**          | Browser (Vite)    | React 18 + `@nonnajs/react`                 | `<NonnaProvider>`, all four hooks, field injection, multi-providers                                       | [`di/samples/sample-react`](./samples/sample-react)                   |
+| **`sample-vue`**            | Browser (Vite)    | Vue 3 + `@nonnajs/vue`                      | `<NonnaProvider>`, composables, field injection, multi-providers                                          | [`di/samples/sample-vue`](./samples/sample-vue)                       |
+| **`sample-svelte`**         | Browser (Vite)    | Svelte 5 + `@nonnajs/svelte`                | `setInjector()`, context functions, field injection, multi-providers                                      | [`di/samples/sample-svelte`](./samples/sample-svelte)                 |
+| **`sample-web-components`** | Browser (Vite)    | Custom Elements + `@nonnajs/web-components` | W3C Context Protocol, `<nonna-provider>`, `@inject()`/`@optionalInject()`/`@allInject()`, field injection | [`di/samples/sample-web-components`](./samples/sample-web-components) |
+| **`sample-stencil`**        | Browser (Stencil) | StencilJS + `@nonnajs/stencil`              | `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators, `<nonna-provider>` interop, multi-providers    | [`di/samples/sample-stencil`](./samples/sample-stencil)               |
 
 ### Running the Samples
 
@@ -603,8 +603,8 @@ pnpm --filter="./di/**" build
 pnpm --filter="./di/**" test
 
 # Run Deno native test runner
-pnpm --filter="@nonna/sample-deno" test:deno
-pnpm --filter="@nonna/sample-deno-http" test:deno
+pnpm --filter="@nonnajs/sample-deno" test:deno
+pnpm --filter="@nonnajs/sample-deno-http" test:deno
 ```
 
 ---
@@ -616,7 +616,7 @@ Nonna makes testing simple because explicit registrations always override decora
 ```ts
 import {describe, it} from "node:test";
 import assert from "node:assert/strict";
-import {Nonna} from "@nonna/di";
+import {Nonna} from "@nonnajs/di";
 import {UserService} from "./user.service";
 import {UserRepository} from "./user.repository";
 
@@ -646,7 +646,7 @@ describe("UserService", () => {
 
 ## API Reference Summary
 
-### `@nonna/di`
+### `@nonnajs/di`
 
 #### `Nonna` (fluent bootstrap)
 
@@ -687,7 +687,7 @@ describe("UserService", () => {
 -   `@Optional(token?: Token)`
 -   `defineDependencies(target: Constructor, deps: readonly DependencyDeclaration[])`
 
-### `@nonna/compiler`
+### `@nonnajs/compiler`
 
 #### CLI
 

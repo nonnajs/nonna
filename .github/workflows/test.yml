@@ -42,7 +42,7 @@ jobs:
             matrix:
                 include:
                     - name: packages
-                      filter: '--filter="@nonna/compiler" --filter="@nonna/di" --filter="@nonna/react" --filter="@nonna/vue" --filter="@nonna/svelte" --filter="@nonna/web-components" --filter="@nonna/stencil" --filter="@nonna/vite-plugin"'
+                      filter: '--filter="@nonnajs/compiler" --filter="@nonnajs/di" --filter="@nonnajs/react" --filter="@nonnajs/vue" --filter="@nonnajs/svelte" --filter="@nonnajs/web-components" --filter="@nonnajs/stencil" --filter="@nonnajs/vite-plugin"'
                     - name: samples
                       filter: '--filter="./samples/*"'
         env:

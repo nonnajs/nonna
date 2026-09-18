@@ -1,8 +1,8 @@
 /**
  * Source of the browser-safe stand-ins served (as virtual modules) in place of the handful of
- * Node.js builtins `@nonna/di`'s published dist bundle statically imports. Kept as plain-string
+ * Node.js builtins `@nonnajs/di`'s published dist bundle statically imports. Kept as plain-string
  * ES module source - rather than real `.ts` files resolved from `dist/` at runtime - so this
- * plugin ships as a single bundled entry point (matching every other `@nonna/*` package here)
+ * plugin ships as a single bundled entry point (matching every other `@nonnajs/*` package here)
  * with no sibling-file path resolution to get wrong across the plugin's own cjs/esm dual build.
  *
  * @remarks

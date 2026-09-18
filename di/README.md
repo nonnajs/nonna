@@ -1,4 +1,4 @@
-# `@nonna/di`
+# `@nonnajs/di`
 
 > High-performance, zero-reflection, runtime-agnostic Dependency Injection container for modern JavaScript & TypeScript.
 
@@ -6,7 +6,7 @@
 [![Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](package.json)
 [![Runtimes](https://img.shields.io/badge/Runtimes-Node.js%20%7C%20Deno%20%7C%20Bun%20%7C%20Edge-blue.svg)](https://github.com/nodejs-boot/node-boot)
 
-`@nonna/di` is the micro-runtime core of the **Nonna** DI framework. It provides IoC container management, 5 provider types, 3 lifecycle scopes (including isolated asynchronous request scoping), reverse-order teardown, and container inspection with **zero external dependencies** and **no `reflect-metadata`**.
+`@nonnajs/di` is the micro-runtime core of the **Nonna** DI framework. It provides IoC container management, 5 provider types, 3 lifecycle scopes (including isolated asynchronous request scoping), reverse-order teardown, and container inspection with **zero external dependencies** and **no `reflect-metadata`**.
 
 ![Nonna Architecture Diagram](../nonna-architecture.svg)
 
@@ -16,16 +16,16 @@
 
 ```sh
 # npm
-npm install @nonna/di
+npm install @nonnajs/di
 
 # pnpm
-pnpm add @nonna/di
+pnpm add @nonnajs/di
 
 # yarn
-yarn add @nonna/di
+yarn add @nonnajs/di
 
 # Bun
-bun add @nonna/di
+bun add @nonnajs/di
 ```
 
 ### Deno
@@ -33,7 +33,7 @@ bun add @nonna/di
 ```json
 {
     "imports": {
-        "@nonna/di": "npm:@nonna/di@^1.0.0"
+        "@nonnajs/di": "npm:@nonnajs/di@^1.0.0"
     }
 }
 ```
@@ -59,7 +59,7 @@ bun add @nonna/di
 
 Most JavaScript DI containers pick one of two trade-offs: lean on `reflect-metadata` + `emitDecoratorMetadata` for auto-wiring (TypeDI, InversifyJS, tsyringe) and accept the runtime reflection tax and the Deno/Bun/edge compatibility gaps that come with it, or drop auto-wiring altogether and make every dependency a manual, stringly-typed registration. Nonna is built to not have to choose:
 
--   **AOT, not reflection.** `@nonna/compiler` statically analyzes your TypeScript at build time and generates plain `defineDependencies(Target, [...])` calls - concrete-class dependencies are known before the process even starts. The runtime injector never imports `typescript`, never touches `Reflect.getMetadata`, and never needs `emitDecoratorMetadata` to be turned on. This is enforced, not just claimed: a guardrail test (`guardrails.test.ts`) fails the build if any source file so much as imports `reflect-metadata` or the compiler package.
+-   **AOT, not reflection.** `@nonnajs/compiler` statically analyzes your TypeScript at build time and generates plain `defineDependencies(Target, [...])` calls - concrete-class dependencies are known before the process even starts. The runtime injector never imports `typescript`, never touches `Reflect.getMetadata`, and never needs `emitDecoratorMetadata` to be turned on. This is enforced, not just claimed: a guardrail test (`guardrails.test.ts`) fails the build if any source file so much as imports `reflect-metadata` or the compiler package.
 -   **Genuinely runtime-agnostic.** The same injector code runs unmodified on Node 18+, Deno, Bun, and edge/Workers runtimes - the one platform-specific piece (request-scope propagation) is abstracted behind a one-method `ContextStorage` interface, defaulting to `AsyncLocalStorage` where available and swappable everywhere else.
 -   **Zero runtime dependencies, full stop.** Not "zero besides a small polyfill" - `package.json` ships an empty `dependencies` object, checked by the same guardrail suite.
 -   **Statically-known async, everywhere.** Whether a factory or an `onInit()` is async is decided once, from the function's own shape, at registration/compile time - never by sniffing whether a call happened to return a `Promise`. That's what lets `get()` fail fast with a clear `AsyncProviderError` _before_ running a constructor whose result would've been thrown away, instead of a container that "usually works" and occasionally hands back an unresolved `Promise` where an instance was expected.
@@ -73,7 +73,7 @@ Most JavaScript DI containers pick one of two trade-offs: lean on `reflect-metad
 ## Quick Example
 
 ```ts
-import {Injectable, Nonna} from "@nonna/di";
+import {Injectable, Nonna} from "@nonnajs/di";
 
 @Injectable()
 export class DatabaseService {
@@ -111,7 +111,7 @@ await injector.destroy();
 The recommended way to configure and boot a container is the fluent `Nonna.injector()` builder. Nothing touches a real `Injector` until the terminal `build()` call - which is also what runs `initialize()` for you, so the returned `Injector` is already validated and eager-warm:
 
 ```ts
-import {Nonna} from "@nonna/di";
+import {Nonna} from "@nonnajs/di";
 
 const injector = await Nonna.injector()
     .withContextStorage(customStorage) // optional - defaults to AsyncLocalStorage
@@ -127,7 +127,7 @@ const injector = await Nonna.injector()
 This is pure sugar over the lower-level, imperative API, which remains fully supported for callers who want that level of control - e.g. holding an uninitialized `Injector` around for a while, or driving `refresh()`/`initialize()` at a different point in your app's startup sequence:
 
 ```ts
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 
 const injector = Injector.create({
     // Optional custom AsyncLocalStorage context storage implementation
@@ -220,14 +220,14 @@ const interceptors = injector.getAll<Interceptor>(INTERCEPTOR_TOKEN);
 ### 3. Dependency Injection Decorators
 
 ```ts
-import {Injectable, Service, Inject, Optional} from "@nonna/di";
+import {Injectable, Service, Inject, Optional} from "@nonnajs/di";
 
 export const API_KEY = Symbol("API_KEY");
 
 @Injectable({scope: "request"})
 export class OrderService {
     constructor(
-        // Inferred by @nonna/compiler at build-time
+        // Inferred by @nonnajs/compiler at build-time
         private readonly userRepo: UserRepository,
 
         // Explicit symbol or string token
@@ -294,7 +294,7 @@ async function handleRequest(req: Request) {
 
 ### 5. Eager vs. Lazy Instantiation
 
-All providers in `@nonna/di` are **lazy by default**:
+All providers in `@nonnajs/di` are **lazy by default**:
 
 -   **Lazy (`eager: false`, default)**: Instances are created upon the first call to `get()` / `getAsync()`.
 -   **Eager (`eager: true`)**: Instances are pre-warmed during `await injector.initialize()`. If an eager provider is asynchronous (`async: true`), `initialize()` awaits its resolution.
@@ -327,7 +327,7 @@ Calling `await injector.initialize()` validates the dependency graph, runs scope
 Implement `OnInit` and `OnDestroy` interfaces to manage resource initialization and teardown:
 
 ```ts
-import {Injectable, OnInit, OnDestroy} from "@nonna/di";
+import {Injectable, OnInit, OnDestroy} from "@nonnajs/di";
 
 @Injectable()
 export class RedisService implements OnInit, OnDestroy {

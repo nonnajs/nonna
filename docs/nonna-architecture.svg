@@ -50,7 +50,7 @@
   <g transform="translate(40, 95)">
     <rect width="420" height="340" rx="14" fill="#131d31" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.9" />
     <rect x="20" y="-12" width="220" height="24" rx="6" fill="url(#compilerGrad)" />
-    <text x="130" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BUILD TIME: @nonna/compiler</text>
+    <text x="130" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BUILD TIME: @nonnajs/compiler</text>
 
     <!-- App Source Files Box -->
     <rect x="25" y="30" width="370" height="70" rx="8" fill="url(#boxGrad)" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
@@ -86,7 +86,7 @@
   <g transform="translate(540, 95)">
     <rect width="420" height="340" rx="14" fill="#0f231c" stroke="#34d399" stroke-width="1.5" opacity="0.95" />
     <rect x="20" y="-12" width="200" height="24" rx="6" fill="url(#runtimeGrad)" />
-    <text x="120" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">RUNTIME: @nonna/di</text>
+    <text x="120" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">RUNTIME: @nonnajs/di</text>
 
     <!-- Injector Core Box -->
     <rect x="25" y="25" width="370" height="95" rx="8" fill="url(#boxGrad)" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
@@ -163,7 +163,7 @@
     <circle cx="43" cy="45" r="9" fill="#61dafb" opacity="0.2"/>
     <text x="43" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#61dafb">R</text>
     <text x="58" y="49" font-size="12" font-weight="700" fill="#f8fafc">React</text>
-    <text x="38" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonna/react</tspan></text>
+    <text x="38" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonnajs/react</tspan></text>
     <text x="38" y="86" font-size="9.5" fill="#64748b">NonnaProvider +</text>
     <text x="38" y="99" font-size="9.5" fill="#64748b">useInjection() hooks</text>
     <text x="38" y="112" font-size="9" fill="#475569">sample-react</text>
@@ -173,7 +173,7 @@
     <circle cx="225" cy="45" r="9" fill="#42b883" opacity="0.2"/>
     <text x="225" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#42b883">V</text>
     <text x="240" y="49" font-size="12" font-weight="700" fill="#f8fafc">Vue 3</text>
-    <text x="220" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonna/vue</tspan></text>
+    <text x="220" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonnajs/vue</tspan></text>
     <text x="220" y="86" font-size="9.5" fill="#64748b">NonnaProvider +</text>
     <text x="220" y="99" font-size="9.5" fill="#64748b">useInjection() composables</text>
     <text x="220" y="112" font-size="9" fill="#475569">sample-vue</text>
@@ -183,7 +183,7 @@
     <circle cx="407" cy="45" r="9" fill="#ff3e00" opacity="0.2"/>
     <text x="407" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#ff3e00">S</text>
     <text x="422" y="49" font-size="12" font-weight="700" fill="#f8fafc">Svelte 5</text>
-    <text x="402" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonna/svelte</tspan></text>
+    <text x="402" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonnajs/svelte</tspan></text>
     <text x="402" y="86" font-size="9.5" fill="#64748b">setInjector() +</text>
     <text x="402" y="99" font-size="9.5" fill="#64748b">useInjection() runes</text>
     <text x="402" y="112" font-size="9" fill="#475569">sample-svelte</text>
@@ -193,7 +193,7 @@
     <circle cx="589" cy="45" r="9" fill="#9333ea" opacity="0.2"/>
     <text x="589" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#9333ea">W</text>
     <text x="604" y="49" font-size="12" font-weight="700" fill="#f8fafc">Web Components</text>
-    <text x="584" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonna/web-components</tspan></text>
+    <text x="584" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonnajs/web-components</tspan></text>
     <text x="584" y="86" font-size="9.5" fill="#64748b">W3C Context Protocol +</text>
     <text x="584" y="99" font-size="9.5" fill="#64748b">@inject/@optionalInject</text>
     <text x="584" y="112" font-size="9" fill="#475569">sample-web-components</text>
@@ -203,7 +203,7 @@
     <circle cx="771" cy="45" r="9" fill="#4c48ff" opacity="0.2"/>
     <text x="771" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#4c48ff">St</text>
     <text x="789" y="49" font-size="12" font-weight="700" fill="#f8fafc">StencilJS</text>
-    <text x="766" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonna/stencil</tspan></text>
+    <text x="766" y="70" font-size="10" fill="#94a3b8"><tspan fill="#38bdf8">@nonnajs/stencil</tspan></text>
     <text x="766" y="86" font-size="9.5" fill="#64748b">@Element()-based +</text>
     <text x="766" y="99" font-size="9.5" fill="#64748b">nonna-provider interop</text>
     <text x="766" y="112" font-size="9" fill="#475569">sample-stencil</text>

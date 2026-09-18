@@ -7,10 +7,10 @@ Yes, `pnpm` and `changesets` **work with `workspace:*` dependencies**, but there
 When you use:
 
 ```json
-"@nonna/di": "workspace:*"
+"@nonnajs/di": "workspace:*"
 ```
 
-PNPM resolves `@nonna/di` from within your workspace instead of fetching it from the registry.
+PNPM resolves `@nonnajs/di` from within your workspace instead of fetching it from the registry.
 
 **Key benefits of `workspace:*`:**
 
@@ -34,13 +34,13 @@ Let's say your monorepo has:
 
 ```
 /compiler (version 1.0.0)
-/react (depends on @nonna/di with "workspace:*")
+/react (depends on @nonnajs/di with "workspace:*")
 ```
 
-If `di` (which provides `@nonna/di`) gets a **minor bump**:
+If `di` (which provides `@nonnajs/di`) gets a **minor bump**:
 
--   Changesets updates `@nonna/di` to **1.1.0**.
--   Changesets ensures `@nonna/react` is updated to reference `1.1.0`.
+-   Changesets updates `@nonnajs/di` to **1.1.0**.
+-   Changesets ensures `@nonnajs/react` is updated to reference `1.1.0`.
 
 This prevents mismatches where one package is using an outdated version.
 
@@ -55,10 +55,10 @@ This prevents mismatches where one package is using an outdated version.
 ✅ Instead, prefer:
 
 ```json
-"@nonna/di": "workspace:^"
+"@nonnajs/di": "workspace:^"
 ```
 
-This ensures that `@nonna/di` follows semver rules (`^1.0.0` → allows updates to `1.x.x` but not `2.x.x`).
+This ensures that `@nonnajs/di` follows semver rules (`^1.0.0` → allows updates to `1.x.x` but not `2.x.x`).
 
 ---
 
