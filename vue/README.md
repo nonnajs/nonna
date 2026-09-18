@@ -9,46 +9,157 @@
 ## Installation
 
 ```sh
+# npm
 npm install @nonnajs/vue @nonnajs/di vue
+
+# Optional: Build-time AOT compiler
+npm install --save-dev @nonnajs/compiler
+
+# If using Vite in the browser
+npm install --save-dev @nonnajs/vite-plugin
 ```
 
-`@nonnajs/di` and `vue` are peer dependencies - bring your own versions (Vue `>=3.2`, any `@nonnajs/di` `1.x`).
+`@nonnajs/di` and `vue` are peer dependencies (Vue `>=3.2`, any `@nonnajs/di` `1.x`).
 
 ---
 
-## Quick Example
+## Working Sample
+
+A fully functional, runnable sample application is available on GitHub:
+👉 **[`nonnajs/sample-vue`](https://github.com/nonnajs/sample-vue)** (Vue 3 + Vite + `@nonnajs/vue`)
+
+---
+
+## Complete Example
+
+### 1. Define Services
+
+Services are standard TypeScript classes decorated with `@Injectable()` from `@nonnajs/di`.
+
+```ts
+// src/services/user.repository.ts
+import {Injectable} from "@nonnajs/di";
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+@Injectable()
+export class UserRepository {
+    private readonly users: User[] = [
+        {id: "1", name: "Alice", email: "alice@example.com"},
+        {id: "2", name: "Bob", email: "bob@example.com"},
+    ];
+
+    findAll(): User[] {
+        return this.users;
+    }
+}
+```
+
+```ts
+// src/services/user.service.ts
+import {Injectable} from "@nonnajs/di";
+import {UserRepository, User} from "./user.repository";
+
+@Injectable()
+export class UserService {
+    // Constructor dependency is inferred automatically at build time with @nonnajs/compiler
+    constructor(private readonly userRepo: UserRepository) {}
+
+    getUsers(): User[] {
+        return this.userRepo.findAll();
+    }
+}
+```
+
+### 2. AOT Dependency Compilation (Optional, Recommended)
+
+With `@nonnajs/compiler`, constructor dependencies are inferred at build time using TypeScript's `TypeChecker` with **zero runtime reflection**:
+
+```json
+// package.json
+{
+    "scripts": {
+        "prebuild": "nonna-compile",
+        "build": "vue-tsc && vite build"
+    }
+}
+```
+
+### 3. Application Bootstrap
+
+Boot the container once at your app entry point, and make it available across your Vue app tree using `<NonnaProvider>`:
+
+```ts
+// src/main.ts
+import {createApp, h} from "vue";
+import {Nonna} from "@nonnajs/di";
+import {NonnaProvider} from "@nonnajs/vue";
+import App from "./App.vue";
+
+// Import AOT-generated dependencies metadata (if using @nonnajs/compiler)
+import "./__generated__/nonna-dependencies.generated";
+
+async function bootstrap() {
+    // 1. Configure and build the container
+    const injector = await Nonna.injector().scan().build();
+
+    // 2. Mount root app with NonnaProvider
+    const app = createApp({
+        render: () => h(NonnaProvider, {injector}, {default: () => h(App)}),
+    });
+
+    app.mount("#app");
+}
+
+bootstrap();
+```
+
+### 4. Component Injection with Composables
+
+Use `useInjection()`, `useOptionalInjection()`, `useAllInjections()`, or `useInjector()` inside `<script setup>`:
 
 ```vue
-<!-- App.vue -->
+<!-- src/components/UserList.vue -->
 <script setup lang="ts">
 import {useInjection} from "@nonnajs/vue";
-import {UserService} from "./user.service";
+import {UserService} from "../services/user.service";
 
+// Injects the singleton UserService instance from the nearest NonnaProvider
 const userService = useInjection(UserService);
 const users = userService.getUsers();
 </script>
 
 <template>
-    <ul>
-        <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-    </ul>
+    <div>
+        <h2>User Directory</h2>
+        <ul>
+            <li v-for="user in users" :key="user.id">
+                <strong>{{ user.name }}</strong> ({{ user.email }})
+            </li>
+        </ul>
+    </div>
 </template>
 ```
 
+---
+
+## Bundling For The Browser
+
+`@nonnajs/di` uses Node.js `AsyncLocalStorage` by default for request scoping. When building for the browser with Vite, use [`@nonnajs/vite-plugin`](../vite-plugin) to automatically provide browser-safe shims:
+
 ```ts
-// main.ts
-import {createApp} from "vue";
-import {Nonna} from "@nonnajs/di";
-import {NonnaProvider} from "@nonnajs/vue";
-import App from "./App.vue";
+// vite.config.ts
+import {defineConfig} from "vite";
+import vue from "@vitejs/plugin-vue";
+import nonna from "@nonnajs/vite-plugin";
 
-// 1. Configure and boot the container once, at your app's entry point - not inside the tree.
-const injector = await Nonna.injector().scan().build();
-
-const RootApp = {
-    render: () => h(NonnaProvider, {injector}, {default: () => h(App)}),
-};
-createApp(RootApp).mount("#app");
+export default defineConfig({
+    plugins: [vue(), nonna()],
+});
 ```
 
 ---

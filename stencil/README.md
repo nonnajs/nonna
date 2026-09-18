@@ -9,31 +9,114 @@
 ## Installation
 
 ```sh
+# npm
 npm install @nonnajs/stencil @nonnajs/di @nonnajs/web-components @stencil/core
+
+# Optional: Build-time AOT compiler
+npm install --save-dev @nonnajs/compiler
 ```
 
 `@nonnajs/di`, `@nonnajs/web-components`, and `@stencil/core` (`>=4.0.0`) are peer dependencies.
 
 ---
 
-## Why a Stencil component needs `getElement()`, not `this`
+## Working Sample
 
-A Stencil component compiles down to a real custom element, so _providing_/_requesting_ an
-`Injector` over the DOM is not Stencil-specific at all - it's exactly the
-[W3C Context Protocol](https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md)
-implementation `@nonnajs/web-components` already ships (`<nonna-provider>`, `provideInjector()`,
-`requestInjection()`/`requestOptionalInjection()`/`requestAllInjections()`), re-exported here as-is.
-
-What _is_ Stencil-specific is how a component gets hold of its own host element to pass to those
-functions: `this` inside a Stencil component class is not guaranteed to be the actual
-`HTMLElement` - it depends on the build's output target. `@Inject()`/`@OptionalInject()`/
-`@AllInject()` resolve this internally via `getElement()` (a public, documented `@stencil/core`
-API for exactly this - the same mechanism community libraries like `@stencil/redux` rely on), so
-you don't need a separate `@Element()` field just to read a dependency.
+A fully functional, runnable sample application is available on GitHub:
+👉 **[`nonnajs/sample-stencil`](https://github.com/nonnajs/sample-stencil)** (StencilJS + `@nonnajs/stencil`)
 
 ---
 
-## Quick Example
+## Complete Example
+
+### 1. Define Services
+
+Services are standard TypeScript classes decorated with `@Injectable()` from `@nonnajs/di`.
+
+```ts
+// src/services/user.repository.ts
+import {Injectable} from "@nonnajs/di";
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+@Injectable()
+export class UserRepository {
+    private readonly users: User[] = [
+        {id: "1", name: "Alice", email: "alice@example.com"},
+        {id: "2", name: "Bob", email: "bob@example.com"},
+    ];
+
+    findAll(): User[] {
+        return this.users;
+    }
+}
+```
+
+```ts
+// src/services/user.service.ts
+import {Injectable} from "@nonnajs/di";
+import {UserRepository, User} from "./user.repository";
+
+@Injectable()
+export class UserService {
+    // Constructor dependency is inferred automatically at build time with @nonnajs/compiler
+    constructor(private readonly userRepo: UserRepository) {}
+
+    getUsers(): User[] {
+        return this.userRepo.findAll();
+    }
+}
+```
+
+### 2. AOT Dependency Compilation (Optional, Recommended)
+
+With `@nonnajs/compiler`, constructor dependencies are inferred at build time using TypeScript's `TypeChecker` with **zero runtime reflection**:
+
+```json
+// package.json
+{
+    "scripts": {
+        "prebuild": "nonna-compile",
+        "build": "stencil build"
+    }
+}
+```
+
+### 3. Application Bootstrap & Provider Setup
+
+```html
+<!-- src/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <nonna-provider id="app-provider"></nonna-provider>
+
+        <script type="module">
+            import {defineNonnaProvider} from "@nonnajs/stencil";
+            import {Nonna} from "@nonnajs/di";
+
+            // Import AOT-generated dependencies metadata (if using @nonnajs/compiler)
+            import "./__generated__/nonna-dependencies.generated";
+
+            defineNonnaProvider();
+
+            const injector = await Nonna.injector().scan().build();
+            const provider = document.getElementById("app-provider");
+            provider.injector = injector;
+
+            // Define/append Stencil consumer components *after* the provider is ready
+            await import("./build/app.esm.js");
+            provider.innerHTML = "<user-list></user-list>";
+        </script>
+    </body>
+</html>
+```
+
+### 4. Component Injection with Stencil Decorators
 
 ```tsx
 // src/components/user-list.tsx
@@ -42,9 +125,12 @@ import {Inject} from "@nonnajs/stencil";
 import {UserService} from "../services/user.service";
 import type {User} from "../services/user.repository";
 
-@Component({tag: "user-list", shadow: false})
+@Component({
+    tag: "user-list",
+    shadow: false,
+})
 export class UserList {
-    // `declare` is required - see the `@Inject()` API docs below for why.
+    // `declare` is required for prototype getter decorators in TypeScript/esbuild
     @Inject(UserService)
     private declare readonly userService: UserService;
 
@@ -56,36 +142,19 @@ export class UserList {
 
     render() {
         return (
-            <ul>
-                {this.users.map(u => (
-                    <li>{u.name}</li>
-                ))}
-            </ul>
+            <div>
+                <h2>User Directory</h2>
+                <ul>
+                    {this.users.map(u => (
+                        <li key={u.id}>
+                            <strong>{u.name}</strong> ({u.email})
+                        </li>
+                    ))}
+                </ul>
+            </div>
         );
     }
 }
-```
-
-```html
-<!-- src/index.html -->
-<nonna-provider id="app-provider"></nonna-provider>
-
-<script type="module">
-    import {defineNonnaProvider} from "@nonnajs/stencil";
-    import {Nonna} from "@nonnajs/di";
-
-    defineNonnaProvider();
-
-    const injector = await Nonna.injector().scan().build();
-    const provider = document.getElementById("app-provider");
-    provider.injector = injector;
-
-    // Only define/append the Stencil consumer components *after* the provider is ready -
-    // see the sample app for why (the same DOM-upgrade-timing trap `@nonnajs/web-components`
-    // documents applies here too).
-    await import("./build/app.esm.js");
-    provider.innerHTML = "<user-list></user-list>";
-</script>
 ```
 
 Prefer an explicit `@Element()` field instead? `requestInjection()`/`requestOptionalInjection()`/

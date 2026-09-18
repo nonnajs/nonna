@@ -9,14 +9,133 @@
 ## Installation
 
 ```sh
+# npm
 npm install @nonnajs/web-components @nonnajs/di
+
+# Optional: Build-time AOT compiler
+npm install --save-dev @nonnajs/compiler
+
+# If using Vite in the browser
+npm install --save-dev @nonnajs/vite-plugin
 ```
 
 `@nonnajs/di` is a peer dependency (any `@nonnajs/di` `1.x`).
 
 ---
 
-## Quick Example (Vanilla Custom Elements)
+## Working Sample
+
+A fully functional, runnable sample application is available on GitHub:
+👉 **[`nonnajs/sample-web-components`](https://github.com/nonnajs/sample-web-components)** (Custom Elements + Vite + `@nonnajs/web-components`)
+
+---
+
+## Complete Example
+
+### 1. Define Services
+
+Services are standard TypeScript classes decorated with `@Injectable()` from `@nonnajs/di`.
+
+```ts
+// src/services/user.repository.ts
+import {Injectable} from "@nonnajs/di";
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+@Injectable()
+export class UserRepository {
+    private readonly users: User[] = [
+        {id: "1", name: "Alice", email: "alice@example.com"},
+        {id: "2", name: "Bob", email: "bob@example.com"},
+    ];
+
+    findAll(): User[] {
+        return this.users;
+    }
+}
+```
+
+```ts
+// src/services/user.service.ts
+import {Injectable} from "@nonnajs/di";
+import {UserRepository, User} from "./user.repository";
+
+@Injectable()
+export class UserService {
+    // Constructor dependency is inferred automatically at build time with @nonnajs/compiler
+    constructor(private readonly userRepo: UserRepository) {}
+
+    getUsers(): User[] {
+        return this.userRepo.findAll();
+    }
+}
+```
+
+### 2. AOT Dependency Compilation (Optional, Recommended)
+
+With `@nonnajs/compiler`, constructor dependencies are inferred at build time using TypeScript's `TypeChecker` with **zero runtime reflection**:
+
+```json
+// package.json
+{
+    "scripts": {
+        "prebuild": "nonna-compile",
+        "build": "tsc && vite build"
+    }
+}
+```
+
+### 3. Application Bootstrap & Provider Setup
+
+Register `<nonna-provider>`, boot the container, and assign it to the DOM provider element:
+
+```html
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <nonna-provider id="app-provider">
+            <user-list></user-list>
+        </nonna-provider>
+
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
+```
+
+```ts
+// src/main.ts
+import {defineNonnaProvider} from "@nonnajs/web-components";
+import {Nonna} from "@nonnajs/di";
+
+// Import AOT-generated dependencies metadata (if using @nonnajs/compiler)
+import "./__generated__/nonna-dependencies.generated";
+
+async function bootstrap() {
+    // 1. Register <nonna-provider> custom element
+    defineNonnaProvider();
+
+    // 2. Configure and build injector
+    const injector = await Nonna.injector().scan().build();
+
+    // 3. Attach injector to DOM provider
+    const provider = document.getElementById("app-provider") as any;
+    provider.injector = injector;
+
+    // 4. Import consumer components *after* the provider is ready
+    await import("./components/user-list");
+}
+
+bootstrap();
+```
+
+### 4. Component Injection
+
+#### Option A: Vanilla Custom Elements (`requestInjection`)
 
 ```ts
 // src/components/user-list.ts
@@ -25,48 +144,23 @@ import {UserService} from "../services/user.service";
 
 export class UserListElement extends HTMLElement {
     connectedCallback(): void {
+        // Dispatches standard W3C Context Protocol event to resolve service from nearest <nonna-provider>
         const userService = requestInjection(this, UserService);
         const users = userService.getUsers();
 
         this.innerHTML = `
-            <h2>Users</h2>
+            <h2>User Directory</h2>
             <ul>
-                ${users.map(u => `<li>${u.name} &lt;${u.email}&gt;</li>`).join("")}
+                ${users.map(u => `<li><strong>${u.name}</strong> (${u.email})</li>`).join("")}
             </ul>
         `;
     }
 }
+
 customElements.define("user-list", UserListElement);
 ```
 
-```html
-<!-- index.html -->
-<nonna-provider id="app-provider">
-    <user-list></user-list>
-</nonna-provider>
-
-<script type="module">
-    import {defineNonnaProvider} from "@nonnajs/web-components";
-    import {Nonna} from "@nonnajs/di";
-
-    defineNonnaProvider();
-
-    const injector = await Nonna.injector().scan().build();
-    document.getElementById("app-provider").injector = injector;
-
-    // Import consumer custom elements only *after* the provider is ready. Defining
-    // them earlier would upgrade any already-parsed matching elements immediately
-    // (synchronously, per the Custom Elements spec) and they'd request injection
-    // before any provider is listening - `provideInjector()`/`<nonna-provider>`
-    // answer a `context-request` at most once, synchronously, so an early request
-    // fails permanently instead of waiting for the injector to be ready.
-    await import("./components/user-list");
-</script>
-```
-
----
-
-## Lit / Class Decorators Example
+#### Option B: Class Decorators (`@inject`) / Lit
 
 ```ts
 import {LitElement, html} from "lit";
@@ -76,7 +170,7 @@ import {UserService} from "../services/user.service";
 
 @customElement("lit-user-list")
 export class LitUserList extends LitElement {
-    // `declare` is required - see the `@inject()` API docs below for why.
+    // Injects service when element connects to DOM (use `declare` for TypeScript class fields)
     @inject(UserService)
     private declare readonly userService: UserService;
 
@@ -84,11 +178,27 @@ export class LitUserList extends LitElement {
         const users = this.userService.getUsers();
         return html`
             <ul>
-                ${users.map(u => html`<li>${u.name}</li>`)}
+                ${users.map(u => html`<li><strong>${u.name}</strong> (${u.email})</li>`)}
             </ul>
         `;
     }
 }
+```
+
+---
+
+## Bundling For The Browser
+
+`@nonnajs/di` uses Node.js `AsyncLocalStorage` by default for request scoping. When building for the browser with Vite, use [`@nonnajs/vite-plugin`](../vite-plugin) to automatically provide browser-safe shims:
+
+```ts
+// vite.config.ts
+import {defineConfig} from "vite";
+import nonna from "@nonnajs/vite-plugin";
+
+export default defineConfig({
+    plugins: [nonna()],
+});
 ```
 
 ---

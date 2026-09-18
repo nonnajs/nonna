@@ -387,6 +387,24 @@ A few internal choices exist specifically to keep the hot resolution path cheap:
 
 ---
 
+## Nonna DI Samples
+
+Runnable sample applications demonstrating `@nonnajs/di` across different JavaScript runtimes:
+
+-   **[`sample-node`](https://github.com/nonnajs/sample-node)**: Pure Node.js application demonstrating `@nonnajs/di`, AOT compilation with `@nonnajs/compiler`, request scopes, optional injection, and lifecycle hooks (`onDestroy`).
+-   **[`sample-node-http`](https://github.com/nonnajs/sample-node-http)**: Pure Node.js HTTP server application using native `node:http`, request-scoped controllers and router, and AOT compilation.
+-   **[`sample-deno`](https://github.com/nonnajs/sample-deno)**: Pure Deno application demonstrating `@nonnajs/di` in Deno runtime, async database providers, request scoping, and Deno test execution.
+-   **[`sample-deno-http`](https://github.com/nonnajs/sample-deno-http)**: Deno HTTP server sample using Hono, request-scoped middleware, controllers, and Web Standards Fetch API.
+-   **[`sample-bun`](https://github.com/nonnajs/sample-bun)**: Pure Bun application demonstrating `@nonnajs/di` in Bun runtime, multi-provider plugins, request scoping, and Bun test execution.
+-   **[`sample-bun-http`](https://github.com/nonnajs/sample-bun-http)**: Bun HTTP server application using native `Bun.serve` and Web Standards Fetch API, request-scoped controllers and router.
+-   **[`sample-react`](https://github.com/nonnajs/sample-react)**: React 18 application with Vite, demonstrating `@nonnajs/react` context provider and hooks.
+-   **[`sample-vue`](https://github.com/nonnajs/sample-vue)**: Vue 3 application with Vite, demonstrating `@nonnajs/vue` provider component and composables.
+-   **[`sample-svelte`](https://github.com/nonnajs/sample-svelte)**: Svelte 5 application with Vite, demonstrating `@nonnajs/svelte` context wiring and functions.
+-   **[`sample-web-components`](https://github.com/nonnajs/sample-web-components)**: Web Components / Custom Elements application with Vite, demonstrating `@nonnajs/web-components` with standard W3C Context Protocol, `<nonna-provider>`, and decorators.
+-   **[`sample-stencil`](https://github.com/nonnajs/sample-stencil)**: StencilJS application, demonstrating `@nonnajs/stencil`'s `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators over the same W3C Context Protocol / `<nonna-provider>`.
+
+---
+
 ## Fun Fact
 
 Nonna was born on vacation in Rome, coded during the "cold hours" in a hotel room while the kids watched TV - a tentative replacement for TypeDI in an existing project, driven by a deceptively simple question: how "pure" (zero-reflection) and fast can a DI container actually get if you stop assuming `reflect-metadata` has to be part of the deal?

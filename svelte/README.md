@@ -9,61 +9,176 @@
 ## Installation
 
 ```sh
+# npm
 npm install @nonnajs/svelte @nonnajs/di svelte
+
+# Optional: Build-time AOT compiler
+npm install --save-dev @nonnajs/compiler
+
+# If using Vite in the browser
+npm install --save-dev @nonnajs/vite-plugin
 ```
 
-`@nonnajs/di` and `svelte` are peer dependencies - bring your own versions (Svelte `>=4.0` or `>=5.0`, any `@nonnajs/di` `1.x`).
+`@nonnajs/di` and `svelte` are peer dependencies (Svelte `>=4.0` or `>=5.0`, any `@nonnajs/di` `1.x`).
 
 ---
 
-## Quick Example
+## Working Sample
 
-```svelte
-<!-- UserList.svelte -->
-<script lang="ts">
-import {useInjection} from "@nonnajs/svelte";
-import {UserService} from "./user.service";
+A fully functional, runnable sample application is available on GitHub:
+👉 **[`nonnajs/sample-svelte`](https://github.com/nonnajs/sample-svelte)** (Svelte 5 + Vite + `@nonnajs/svelte`)
 
-const userService = useInjection(UserService);
-const users = userService.getUsers();
-</script>
+---
 
-<ul>
-    {#each users as user (user.id)}
-        <li>{user.name}</li>
-    {/each}
-</ul>
-```
+## Complete Example
 
-```svelte
-<!-- App.svelte -->
-<script lang="ts">
-import type {Injector} from "@nonnajs/di";
-import {setInjector} from "@nonnajs/svelte";
-import UserList from "./UserList.svelte";
+### 1. Define Services
 
-let {injector} = $props<{injector: Injector}>();
-setInjector(injector);
-</script>
+Services are standard TypeScript classes decorated with `@Injectable()` from `@nonnajs/di`.
 
-<UserList />
+```ts
+// src/services/user.repository.ts
+import {Injectable} from "@nonnajs/di";
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+@Injectable()
+export class UserRepository {
+    private readonly users: User[] = [
+        {id: "1", name: "Alice", email: "alice@example.com"},
+        {id: "2", name: "Bob", email: "bob@example.com"},
+    ];
+
+    findAll(): User[] {
+        return this.users;
+    }
+}
 ```
 
 ```ts
-// main.ts
+// src/services/user.service.ts
+import {Injectable} from "@nonnajs/di";
+import {UserRepository, User} from "./user.repository";
+
+@Injectable()
+export class UserService {
+    // Constructor dependency is inferred automatically at build time with @nonnajs/compiler
+    constructor(private readonly userRepo: UserRepository) {}
+
+    getUsers(): User[] {
+        return this.userRepo.findAll();
+    }
+}
+```
+
+### 2. AOT Dependency Compilation (Optional, Recommended)
+
+With `@nonnajs/compiler`, constructor dependencies are inferred at build time using TypeScript's `TypeChecker` with **zero runtime reflection**:
+
+```json
+// package.json
+{
+    "scripts": {
+        "prebuild": "nonna-compile",
+        "build": "vite build"
+    }
+}
+```
+
+### 3. Application Bootstrap & Context Setup
+
+Boot the container once at your app entry point, and bind it in your root component using `setInjector()`:
+
+```ts
+// src/main.ts
 import {mount} from "svelte";
 import {Nonna} from "@nonnajs/di";
 import App from "./App.svelte";
 
-// 1. Configure and boot the container once, at your app's entry point - not inside component initialization.
-const injector = await Nonna.injector().scan().build();
+// Import AOT-generated dependencies metadata (if using @nonnajs/compiler)
+import "./__generated__/nonna-dependencies.generated";
 
-const app = mount(App, {
-    target: document.getElementById("app")!,
-    props: {injector},
+async function bootstrap() {
+    // 1. Configure and build the container
+    const injector = await Nonna.injector().scan().build();
+
+    // 2. Mount Svelte root component passing injector as prop
+    const app = mount(App, {
+        target: document.getElementById("app")!,
+        props: {injector},
+    });
+
+    return app;
+}
+
+bootstrap();
+```
+
+```svelte
+<!-- src/App.svelte -->
+<script lang="ts">
+import type {Injector} from "@nonnajs/di";
+import {setInjector} from "@nonnajs/svelte";
+import UserList from "./components/UserList.svelte";
+
+let {injector} = $props<{injector: Injector}>();
+
+// Sets injector in Svelte context for all child components
+setInjector(injector);
+</script>
+
+<main>
+    <h1>My Svelte Application</h1>
+    <UserList />
+</main>
+```
+
+### 4. Component Injection
+
+Use `useInjection()`, `useOptionalInjection()`, `useAllInjections()`, or `useInjector()` inside child components:
+
+```svelte
+<!-- src/components/UserList.svelte -->
+<script lang="ts">
+import {useInjection} from "@nonnajs/svelte";
+import {UserService} from "../services/user.service";
+
+// Injects the singleton UserService instance from the Svelte context
+const userService = useInjection(UserService);
+const users = userService.getUsers();
+</script>
+
+<div>
+    <h2>User Directory</h2>
+    <ul>
+        {#each users as user (user.id)}
+            <li>
+                <strong>{user.name}</strong> ({user.email})
+            </li>
+        {/each}
+    </ul>
+</div>
+```
+
+---
+
+## Bundling For The Browser
+
+`@nonnajs/di` uses Node.js `AsyncLocalStorage` by default for request scoping. When building for the browser with Vite, use [`@nonnajs/vite-plugin`](../vite-plugin) to automatically provide browser-safe shims:
+
+```ts
+// vite.config.ts
+import {defineConfig} from "vite";
+import {svelte} from "@sveltejs/vite-plugin-svelte";
+import nonna from "@nonnajs/vite-plugin";
+
+export default defineConfig({
+    plugins: [svelte(), nonna()],
 });
-
-export default app;
 ```
 
 ---

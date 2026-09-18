@@ -578,35 +578,21 @@ console.log(inspection);
 
 ## Runtime Samples Matrix
 
-The repository includes 9 runnable sample applications verifying full compatibility across runtimes and frameworks:
+Runnable sample applications demonstrating `@nonnajs/di` across different JavaScript runtimes and UI frameworks:
 
-| Sample                      | Runtime           | Transport / Architecture                    | Features Tested                                                                                           | Directory                                                             |
-| --------------------------- | ----------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **`sample-node`**           | Node.js (18+)     | CLI / Pure App                              | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                       | [`di/samples/sample-node`](./samples/sample-node)                     |
-| **`sample-node-http`**      | Node.js (18+)     | Native `node:http`                          | Zero-framework HTTP server, request scoping per incoming request, router                                  | [`di/samples/sample-node-http`](./samples/sample-node-http)           |
-| **`sample-deno`**           | Deno (1.40+, 2.x) | CLI / Pure App                              | Deno ESM, async database factory provider, task runner scopes                                             | [`di/samples/sample-deno`](./samples/sample-deno)                     |
-| **`sample-deno-http`**      | Deno (1.40+, 2.x) | Hono / `Deno.serve`                         | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [`di/samples/sample-deno-http`](./samples/sample-deno-http)           |
-| **`sample-bun`**            | Bun (1.0+)        | CLI / Pure App                              | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [`di/samples/sample-bun`](./samples/sample-bun)                       |
-| **`sample-bun-http`**       | Bun (1.0+)        | Native `Bun.serve`                          | Native Bun Web Standards HTTP server, request-scoped controller & router                                  | [`di/samples/sample-bun-http`](./samples/sample-bun-http)             |
-| **`sample-react`**          | Browser (Vite)    | React 18 + `@nonnajs/react`                 | `<NonnaProvider>`, all four hooks, field injection, multi-providers                                       | [`di/samples/sample-react`](./samples/sample-react)                   |
-| **`sample-vue`**            | Browser (Vite)    | Vue 3 + `@nonnajs/vue`                      | `<NonnaProvider>`, composables, field injection, multi-providers                                          | [`di/samples/sample-vue`](./samples/sample-vue)                       |
-| **`sample-svelte`**         | Browser (Vite)    | Svelte 5 + `@nonnajs/svelte`                | `setInjector()`, context functions, field injection, multi-providers                                      | [`di/samples/sample-svelte`](./samples/sample-svelte)                 |
-| **`sample-web-components`** | Browser (Vite)    | Custom Elements + `@nonnajs/web-components` | W3C Context Protocol, `<nonna-provider>`, `@inject()`/`@optionalInject()`/`@allInject()`, field injection | [`di/samples/sample-web-components`](./samples/sample-web-components) |
-| **`sample-stencil`**        | Browser (Stencil) | StencilJS + `@nonnajs/stencil`              | `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators, `<nonna-provider>` interop, multi-providers    | [`di/samples/sample-stencil`](./samples/sample-stencil)               |
-
-### Running the Samples
-
-```sh
-# Build all DI packages and samples
-pnpm --filter="./di/**" build
-
-# Run all test suites across Node, Deno, and Bun
-pnpm --filter="./di/**" test
-
-# Run Deno native test runner
-pnpm --filter="@nonnajs/sample-deno" test:deno
-pnpm --filter="@nonnajs/sample-deno-http" test:deno
-```
+| Sample                                                                          | Runtime           | Transport / Architecture                    | Features Tested                                                                                           | Repository                                                 |
+| ------------------------------------------------------------------------------- | ----------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [**`sample-node`**](https://github.com/nonnajs/sample-node)                     | Node.js (18+)     | CLI / Pure App                              | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                       | [GitHub](https://github.com/nonnajs/sample-node)           |
+| [**`sample-node-http`**](https://github.com/nonnajs/sample-node-http)           | Node.js (18+)     | Native `node:http`                          | Zero-framework HTTP server, request scoping per incoming request, router                                  | [GitHub](https://github.com/nonnajs/sample-node-http)      |
+| [**`sample-deno`**](https://github.com/nonnajs/sample-deno)                     | Deno (1.40+, 2.x) | CLI / Pure App                              | Deno ESM, async database factory provider, task runner scopes                                             | [GitHub](https://github.com/nonnajs/sample-deno)           |
+| [**`sample-deno-http`**](https://github.com/nonnajs/sample-deno-http)           | Deno (1.40+, 2.x) | Hono / `Deno.serve`                         | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [GitHub](https://github.com/nonnajs/sample-deno-http)      |
+| [**`sample-bun`**](https://github.com/nonnajs/sample-bun)                       | Bun (1.0+)        | CLI / Pure App                              | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [GitHub](https://github.com/nonnajs/sample-bun)            |
+| [**`sample-bun-http`**](https://github.com/nonnajs/sample-bun-http)             | Bun (1.0+)        | Native `Bun.serve`                          | Native Bun Web Standards HTTP server, request-scoped controller & router                                  | [GitHub](https://github.com/nonnajs/sample-bun-http)       |
+| [**`sample-react`**](https://github.com/nonnajs/sample-react)                   | Browser (Vite)    | React 18 + `@nonnajs/react`                 | `<NonnaProvider>`, all four hooks, field injection, multi-providers                                       | [GitHub](https://github.com/nonnajs/sample-react)          |
+| [**`sample-vue`**](https://github.com/nonnajs/sample-vue)                       | Browser (Vite)    | Vue 3 + `@nonnajs/vue`                      | `<NonnaProvider>`, composables, field injection, multi-providers                                          | [GitHub](https://github.com/nonnajs/sample-vue)            |
+| [**`sample-svelte`**](https://github.com/nonnajs/sample-svelte)                 | Browser (Vite)    | Svelte 5 + `@nonnajs/svelte`                | `setInjector()`, context functions, field injection, multi-providers                                      | [GitHub](https://github.com/nonnajs/sample-svelte)         |
+| [**`sample-web-components`**](https://github.com/nonnajs/sample-web-components) | Browser (Vite)    | Custom Elements + `@nonnajs/web-components` | W3C Context Protocol, `<nonna-provider>`, `@inject()`/`@optionalInject()`/`@allInject()`, field injection | [GitHub](https://github.com/nonnajs/sample-web-components) |
+| [**`sample-stencil`**](https://github.com/nonnajs/sample-stencil)               | Browser (Stencil) | StencilJS + `@nonnajs/stencil`              | `@Inject()`/`@OptionalInject()`/`@AllInject()` decorators, `<nonna-provider>` interop, multi-providers    | [GitHub](https://github.com/nonnajs/sample-stencil)        |
 
 ---
 
