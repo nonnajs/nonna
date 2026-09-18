@@ -686,6 +686,38 @@ describe("UserService", () => {
 
 ---
 
+## Agentic Development with Nonna Skills
+
+Nonna ships with an [Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)-compatible skills library located in [`.agents/skills/`](./.agents/skills) to help AI coding agents (GitHub Copilot CLI, Claude Code, Cursor, Codex, and 70+ others) accurately design, wire, and bootstrap Nonna applications.
+
+### Installing Skills into Your App
+
+You can install Nonna's agent skills directly into your project or user environment using the [`skills` CLI](https://github.com/vercel-labs/skills):
+
+```sh
+# Install all Nonna skills for Copilot CLI (or your preferred agent)
+npx skills add nonnajs/nonna --skill '*' -a copilot-cli
+
+# Install just the core and runtime skills you need
+npx skills add nonnajs/nonna --skill nonna --skill nonna-di --skill nonna-compiler --skill nonna-node -a copilot-cli
+
+# Install globally to use across all your projects
+npx skills add nonnajs/nonna --skill '*' -g -a copilot-cli
+```
+
+### Available Skills Hierarchy
+
+The skill family is modularized so agents load only the exact tokens needed for a task:
+
+-   **Router**: `nonna` — overview, core pillars, and platform picker.
+-   **Foundational**: `nonna-di` (container & decorators) and `nonna-compiler` (AOT TypeChecker CLI).
+-   **Server Runtimes**: `nonna-node`, `nonna-deno`, and `nonna-bun` — each points to both a plain background process sample and an HTTP REST sample with per-request scoping.
+-   **Frontend / Web**: `nonna-react`, `nonna-vue`, `nonna-svelte`, `nonna-web-components`, and `nonna-stencil`.
+
+Every skill provides direct links to working [GitHub sample repositories](#runtime-samples-matrix), allowing your AI assistant to fetch or `degit` working codebases instead of hallucinating dependency wiring.
+
+---
+
 ## License
 
 Distributed under the **MIT License**.
