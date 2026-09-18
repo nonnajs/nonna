@@ -17,3 +17,4 @@ src/components.d.ts
 # Test coverage
 coverage
 .coverage
+.idea
