@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](package.json)
-[![Runtimes](https://img.shields.io/badge/Runtimes-Node.js%20%7C%20Deno%20%7C%20Bun%20%7C%20Edge-blue.svg)](https://github.com/nodejs-boot/node-boot)
+[![Runtimes](https://img.shields.io/badge/Runtimes-Node.js%20%7C%20Deno%20%7C%20Bun%20%7C%20Edge-blue.svg)](https://github.com/nonnajs/nonna)
 
 `@nonnajs/di` is the micro-runtime core of the **Nonna** DI framework. It provides IoC container management, 5 provider types, 3 lifecycle scopes (including isolated asynchronous request scoping), reverse-order teardown, and container inspection with **zero external dependencies** and **no `reflect-metadata`**.
 
