@@ -49,9 +49,13 @@ export function createInjectorModuleMatcher(
     const nodeModulesFallback = new RegExp(`/node_modules/${packageName.replace(/[/\\^$*+?.()|[\]{}]/g, "\\$&")}/`);
 
     return (fileName: string) => {
-        if (packageRoot && (fileName === packageRoot || fileName.startsWith(packageRoot + path.sep))) {
-            return true;
+        const normalized = fileName.replace(/\\/g, "/");
+        if (packageRoot) {
+            const normalizedRoot = packageRoot.replace(/\\/g, "/");
+            if (normalized === normalizedRoot || normalized.startsWith(normalizedRoot + "/")) {
+                return true;
+            }
         }
-        return nodeModulesFallback.test(fileName);
+        return nodeModulesFallback.test(normalized);
     };
 }

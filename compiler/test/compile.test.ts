@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 
-import {compile} from "../src/compile";
-import {FIXTURES_DIR, INJECTOR_LIKE_FILE} from "./helpers";
+import {compile} from "../src";
+import {FIXTURES_DIR, isInjectorLikeFile} from "./helpers";
 
 const OUTPUT_DIR = path.join(FIXTURES_DIR, "__generated__");
 
@@ -20,7 +20,7 @@ describe("compile() end-to-end", () => {
         const result = compile({
             project: path.join(FIXTURES_DIR, "tsconfig.success.json"),
             outputFile,
-            matchInjectorModule: fileName => fileName === INJECTOR_LIKE_FILE,
+            matchInjectorModule: isInjectorLikeFile,
         });
 
         assert.equal(result.success, true);
@@ -40,7 +40,7 @@ describe("compile() end-to-end", () => {
         const result = compile({
             project: path.join(FIXTURES_DIR, "tsconfig.failure.json"),
             outputFile,
-            matchInjectorModule: fileName => fileName === INJECTOR_LIKE_FILE,
+            matchInjectorModule: isInjectorLikeFile,
         });
 
         assert.equal(result.success, false);
@@ -58,7 +58,7 @@ describe("compile() end-to-end", () => {
         const result = compile({
             project: path.join(FIXTURES_DIR, "tsconfig.additional.json"),
             outputFile,
-            matchInjectorModule: fileName => fileName === INJECTOR_LIKE_FILE,
+            matchInjectorModule: isInjectorLikeFile,
             additionalInjectableDecorators: [{moduleSpecifier: "nodeboot-like", exportName: "Component"}],
             additionalInjectDecorators: [{moduleSpecifier: "nodeboot-like", exportName: "Inject"}],
         });

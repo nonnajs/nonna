@@ -42,5 +42,6 @@ export function getDecorators(node: ts.Node): readonly ts.Decorator[] | undefine
 }
 
 export function isProjectSourceFile(sourceFile: ts.SourceFile): boolean {
-    return !sourceFile.isDeclarationFile && !sourceFile.fileName.includes("/node_modules/");
+    const normalized = sourceFile.fileName.replace(/\\/g, "/");
+    return !sourceFile.isDeclarationFile && !normalized.includes("/node_modules/");
 }

@@ -22,6 +22,12 @@ const COMPILER_OPTIONS: ts.CompilerOptions = {
     noEmit: true,
 };
 
+export function isInjectorLikeFile(fileName: string): boolean {
+    const normFile = path.resolve(fileName).replace(/\\/g, "/");
+    const normTarget = path.resolve(INJECTOR_LIKE_FILE).replace(/\\/g, "/");
+    return normFile === normTarget || normFile.endsWith("/fixtures/injector-like.ts");
+}
+
 export function createFixtureProgram(rootFiles: readonly string[]): {
     program: ts.Program;
     checker: ts.TypeChecker;
@@ -29,7 +35,7 @@ export function createFixtureProgram(rootFiles: readonly string[]): {
 } {
     const program = ts.createProgram({rootNames: rootFiles, options: COMPILER_OPTIONS});
     const checker = program.getTypeChecker();
-    const symbols = resolveInjectorSymbols(program, checker, fileName => fileName === INJECTOR_LIKE_FILE);
+    const symbols = resolveInjectorSymbols(program, checker, isInjectorLikeFile);
     return {program, checker, symbols};
 }
 
@@ -48,7 +54,7 @@ export function createFixtureProgramWithAdditionalSources(rootFiles: readonly st
     const program = ts.createProgram({rootNames: rootFiles, options: COMPILER_OPTIONS});
     const checker = program.getTypeChecker();
     const matchesNodeBootLike = createInjectorModuleMatcher(FIXTURES_DIR, "nodeboot-like");
-    const symbols = resolveInjectorSymbols(program, checker, fileName => fileName === INJECTOR_LIKE_FILE, {
+    const symbols = resolveInjectorSymbols(program, checker, isInjectorLikeFile, {
         injectable: [{matchesFile: matchesNodeBootLike, exportName: "Component"}],
         inject: [{matchesFile: matchesNodeBootLike, exportName: "Inject"}],
     });
