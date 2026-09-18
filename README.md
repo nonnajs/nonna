@@ -3,6 +3,7 @@
 > A lightweight, zero-reflection, runtime-agnostic Dependency Injection framework and AOT compiler for modern JavaScript and TypeScript.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![codecov](https://codecov.io/gh/nonnajs/nonna/branch/main/graph/badge.svg)](https://codecov.io/gh/nonnajs/nonna)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B%20|%2020%2B%20|%2022%2B-green.svg)](https://nodejs.org/)
 [![Deno](https://img.shields.io/badge/Deno-1.40%2B%20|%202.x-black.svg)](https://deno.land/)
 [![Bun](https://img.shields.io/badge/Bun-1.0%2B-orange.svg)](https://bun.sh/)
@@ -579,14 +580,14 @@ console.log(inspection);
 
 The repository includes 9 runnable sample applications verifying full compatibility across runtimes and frameworks:
 
-| Sample                      | Runtime           | Transport / Architecture                  | Features Tested                                                                                           | Directory                                                             |
-| --------------------------- | ----------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **`sample-node`**           | Node.js (18+)     | CLI / Pure App                            | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                         | [`di/samples/sample-node`](./samples/sample-node)                     |
-| **`sample-node-http`**      | Node.js (18+)     | Native `node:http`                        | Zero-framework HTTP server, request scoping per incoming request, router                                  | [`di/samples/sample-node-http`](./samples/sample-node-http)           |
-| **`sample-deno`**           | Deno (1.40+, 2.x) | CLI / Pure App                            | Deno ESM, async database factory provider, task runner scopes                                             | [`di/samples/sample-deno`](./samples/sample-deno)                     |
-| **`sample-deno-http`**      | Deno (1.40+, 2.x) | Hono / `Deno.serve`                       | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [`di/samples/sample-deno-http`](./samples/sample-deno-http)           |
-| **`sample-bun`**            | Bun (1.0+)        | CLI / Pure App                            | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [`di/samples/sample-bun`](./samples/sample-bun)                       |
-| **`sample-bun-http`**       | Bun (1.0+)        | Native `Bun.serve`                        | Native Bun Web Standards HTTP server, request-scoped controller & router                                  | [`di/samples/sample-bun-http`](./samples/sample-bun-http)             |
+| Sample                      | Runtime           | Transport / Architecture                    | Features Tested                                                                                           | Directory                                                             |
+| --------------------------- | ----------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **`sample-node`**           | Node.js (18+)     | CLI / Pure App                              | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                       | [`di/samples/sample-node`](./samples/sample-node)                     |
+| **`sample-node-http`**      | Node.js (18+)     | Native `node:http`                          | Zero-framework HTTP server, request scoping per incoming request, router                                  | [`di/samples/sample-node-http`](./samples/sample-node-http)           |
+| **`sample-deno`**           | Deno (1.40+, 2.x) | CLI / Pure App                              | Deno ESM, async database factory provider, task runner scopes                                             | [`di/samples/sample-deno`](./samples/sample-deno)                     |
+| **`sample-deno-http`**      | Deno (1.40+, 2.x) | Hono / `Deno.serve`                         | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [`di/samples/sample-deno-http`](./samples/sample-deno-http)           |
+| **`sample-bun`**            | Bun (1.0+)        | CLI / Pure App                              | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [`di/samples/sample-bun`](./samples/sample-bun)                       |
+| **`sample-bun-http`**       | Bun (1.0+)        | Native `Bun.serve`                          | Native Bun Web Standards HTTP server, request-scoped controller & router                                  | [`di/samples/sample-bun-http`](./samples/sample-bun-http)             |
 | **`sample-react`**          | Browser (Vite)    | React 18 + `@nonnajs/react`                 | `<NonnaProvider>`, all four hooks, field injection, multi-providers                                       | [`di/samples/sample-react`](./samples/sample-react)                   |
 | **`sample-vue`**            | Browser (Vite)    | Vue 3 + `@nonnajs/vue`                      | `<NonnaProvider>`, composables, field injection, multi-providers                                          | [`di/samples/sample-vue`](./samples/sample-vue)                       |
 | **`sample-svelte`**         | Browser (Vite)    | Svelte 5 + `@nonnajs/svelte`                | `setInjector()`, context functions, field injection, multi-providers                                      | [`di/samples/sample-svelte`](./samples/sample-svelte)                 |

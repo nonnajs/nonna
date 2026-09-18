@@ -19,7 +19,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/nodejs-boot/nonna.git"
+        "url": "https://github.com/nonnajs/nonna.git"
     },
     "publishConfig": {
         "access": "public"

@@ -75,7 +75,7 @@ jobs:
               uses: codecov/codecov-action@v5
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
-                  slug: nodejs-boot/nonna
+                  slug: nonnajs/nonna
                   fail_ci_if_error: false
                   verbose: true
                   flags: ${{ matrix.name }}
