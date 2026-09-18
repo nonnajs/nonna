@@ -1,0 +1,29 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nonna">
+    <defs>
+        <linearGradient id="nonna-bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#16161d"/>
+            <stop offset="100%" stop-color="#0a0a0f"/>
+        </linearGradient>
+        <linearGradient id="nonna-mark" x1="92" y1="92" x2="164" y2="188" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Background -->
+    <rect width="256" height="256" rx="56" fill="url(#nonna-bg)"/>
+    <rect x="1" y="1" width="254" height="254" rx="55" fill="none" stroke="#ffffff" stroke-opacity="0.06"/>
+
+    <!-- "n" monogram, drawn as a Roman arch (springline arc) - reads as the letter "n" for Nonna,
+         and nods to the framework's Rome origin story without being literal about it. -->
+    <path d="M 92 188 L 92 128 A 36 36 0 0 1 164 128 L 164 188"
+          fill="none"
+          stroke="url(#nonna-mark)"
+          stroke-width="26"
+          stroke-linecap="round"/>
+
+    <!-- Injection node: a small resolved dependency point on the arch, the one non-letterform
+         accent hinting at "dependency injection" rather than just a lettermark. -->
+    <circle cx="164" cy="128" r="9" fill="#0a0a0f"/>
+    <circle cx="164" cy="128" r="9" fill="none" stroke="url(#nonna-mark)" stroke-width="4"/>
+</svg>

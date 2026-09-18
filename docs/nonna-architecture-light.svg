@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800" style="background:#f8fafc; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="compilerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f472b6" />
+      <stop offset="100%" stop-color="#db2777" />
+    </linearGradient>
+    <linearGradient id="runtimeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="sampleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="browserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    
+    <!-- Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569" />
+    </marker>
+    <marker id="arrowPink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#db2777" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="500" y="45" text-anchor="middle" font-size="26" font-weight="800" fill="#0f172a" letter-spacing="1">NONNA DI FRAMEWORK ARCHITECTURE</text>
+  <text x="500" y="70" text-anchor="middle" font-size="13" font-weight="500" fill="#475569">Zero-Reflection, Runtime-Agnostic Dependency Injection &amp; Static AOT Compiler</text>
+
+  <!-- ================= SECTION 1: BUILD-TIME (AOT COMPILER) ================= -->
+  <g transform="translate(40, 95)">
+    <rect width="420" height="340" rx="14" fill="#fdf2f8" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.9" />
+    <rect x="20" y="-12" width="220" height="24" rx="6" fill="url(#compilerGrad)" />
+    <text x="130" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BUILD TIME: @nonna/compiler</text>
+
+    <!-- App Source Files Box -->
+    <rect x="25" y="30" width="370" height="70" rx="8" fill="url(#boxGrad)" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+    <text x="40" y="52" font-size="13" font-weight="700" fill="#db2777">TypeScript Source Classes</text>
+    <text x="40" y="72" font-size="11" fill="#334155">@Injectable() decorated classes (UserService, DB...)</text>
+    <text x="40" y="88" font-size="10" fill="#64748b">Constructor params typed with concrete classes</text>
+
+    <!-- Arrow down -->
+    <line x1="210" y1="100" x2="210" y2="125" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- Compiler Engine Box -->
+    <rect x="25" y="130" width="370" height="85" rx="8" fill="url(#boxGrad)" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+    <text x="40" y="152" font-size="13" font-weight="700" fill="#0284c7">TypeScript TypeChecker AST Engine</text>
+    <text x="40" y="172" font-size="11" fill="#475569">• Resolves constructor tokens statically</text>
+    <text x="40" y="188" font-size="11" fill="#475569">• Validates tokens, interfaces &amp; generics</text>
+    <text x="40" y="204" font-size="11" fill="#475569">• Zero reflect-metadata required</text>
+
+    <!-- Arrow down -->
+    <line x1="210" y1="215" x2="210" y2="240" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- Generated Code Box -->
+    <rect x="25" y="245" width="370" height="70" rx="8" fill="url(#boxGrad)" stroke="#f472b6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="40" y="267" font-size="13" font-weight="700" fill="#db2777">Generated Metadata File</text>
+    <text x="40" y="287" font-size="11" font-family="monospace" fill="#0f172a">src/__generated__/nonna-dependencies.generated.ts</text>
+    <text x="40" y="303" font-size="10" fill="#475569">defineDependencies(UserService, [UserRepository, ...])</text>
+  </g>
+
+  <!-- Connecting Arrow from AOT to Runtime -->
+  <path d="M 460 380 L 525 380" stroke="#f472b6" stroke-width="2" marker-end="url(#arrowPink)" stroke-dasharray="4,3"/>
+  <text x="492" y="370" text-anchor="middle" font-size="10" font-weight="600" fill="#db2777">imports</text>
+
+  <!-- ================= SECTION 2: RUNTIME CONTAINER ================= -->
+  <g transform="translate(540, 95)">
+    <rect width="420" height="340" rx="14" fill="#f0fdf4" stroke="#34d399" stroke-width="1.5" opacity="0.95" />
+    <rect x="20" y="-12" width="200" height="24" rx="6" fill="url(#runtimeGrad)" />
+    <text x="120" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">RUNTIME: @nonna/di</text>
+
+    <!-- Injector Core Box -->
+    <rect x="25" y="25" width="370" height="95" rx="8" fill="url(#boxGrad)" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+    <text x="40" y="47" font-size="14" font-weight="700" fill="#059669">Nonna Injector Container</text>
+    <text x="40" y="67" font-size="11" fill="#334155">Injector.create()  ➔  refresh()  ➔  initialize()</text>
+    <text x="40" y="85" font-size="11" fill="#475569">• 5 Providers: useClass, useValue, useFactory, useExisting, multi</text>
+    <text x="40" y="103" font-size="11" fill="#475569">• Eager pre-warming &amp; Lazy instantiation on-demand</text>
+
+    <!-- Scopes Box -->
+    <rect x="25" y="130" width="370" height="110" rx="8" fill="url(#boxGrad)" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+    <text x="40" y="152" font-size="13" font-weight="700" fill="#0284c7">Three-Tier Lifecycle Scopes</text>
+    
+    <rect x="40" y="165" width="95" height="60" rx="6" fill="#f1f5f9" stroke="#3b82f6" stroke-width="1"/>
+    <text x="87" y="184" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">Singleton</text>
+    <text x="87" y="200" text-anchor="middle" font-size="9" fill="#475569">One per</text>
+    <text x="87" y="213" text-anchor="middle" font-size="9" fill="#475569">container</text>
+
+    <rect x="145" y="165" width="100" height="60" rx="6" fill="#f1f5f9" stroke="#a855f7" stroke-width="1"/>
+    <text x="195" y="184" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Request Scope</text>
+    <text x="195" y="200" text-anchor="middle" font-size="9" fill="#475569">runInScope()</text>
+    <text x="195" y="213" text-anchor="middle" font-size="9" fill="#475569">AsyncLocalStorage</text>
+
+    <rect x="255" y="165" width="125" height="60" rx="6" fill="#f1f5f9" stroke="#f59e0b" stroke-width="1"/>
+    <text x="317" y="184" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">Transient</text>
+    <text x="317" y="200" text-anchor="middle" font-size="9" fill="#475569">New instance</text>
+    <text x="317" y="213" text-anchor="middle" font-size="9" fill="#475569">every get()</text>
+
+    <!-- Lifecycle & Safety Box -->
+    <rect x="25" y="250" width="370" height="65" rx="8" fill="url(#boxGrad)" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+    <text x="40" y="272" font-size="12" font-weight="700" fill="#059669">Safety &amp; Lifecycle Hooks</text>
+    <text x="40" y="290" font-size="10.5" fill="#475569">• Guardrails: Blocks singleton ➔ request scope leaks</text>
+    <text x="40" y="304" font-size="10.5" fill="#475569">• OnInit / OnDestroy teardown in reverse topological order</text>
+  </g>
+
+  <!-- ================= SECTION 3: RUNTIME RUNNERS & SAMPLES ================= -->
+  <g transform="translate(40, 460)">
+    <rect width="920" height="130" rx="14" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" opacity="0.95" />
+    <rect x="20" y="-12" width="260" height="24" rx="6" fill="url(#primaryGrad)" />
+    <text x="150" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">TARGET RUNTIMES &amp; SAMPLES</text>
+
+    <!-- Node.js Box -->
+    <rect x="30" y="25" width="270" height="85" rx="8" fill="url(#boxGrad)" stroke="#22c55e" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="50" cy="45" r="10" fill="#22c55e" opacity="0.2"/>
+    <text x="50" y="49" text-anchor="middle" font-size="11" font-weight="800" fill="#22c55e">N</text>
+    <text x="68" y="49" font-size="13" font-weight="700" fill="#0f172a">Node.js (18+)</text>
+    <text x="40" y="72" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-node</tspan>: Pure CLI &amp; AOT</text>
+    <text x="40" y="90" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-node-http</tspan>: Native node:http</text>
+
+    <!-- Deno Box -->
+    <rect x="325" y="25" width="270" height="85" rx="8" fill="url(#boxGrad)" stroke="#38bdf8" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="345" cy="45" r="10" fill="#0284c7" opacity="0.2"/>
+    <text x="345" y="49" text-anchor="middle" font-size="11" font-weight="800" fill="#0284c7">D</text>
+    <text x="363" y="49" font-size="13" font-weight="700" fill="#0f172a">Deno (1.40+ / 2.x)</text>
+    <text x="335" y="72" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-deno</tspan>: ESM Async Providers</text>
+    <text x="335" y="90" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-deno-http</tspan>: Hono Web Server</text>
+
+    <!-- Bun Box -->
+    <rect x="620" y="25" width="270" height="85" rx="8" fill="url(#boxGrad)" stroke="#f59e0b" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="640" cy="45" r="10" fill="#f59e0b" opacity="0.2"/>
+    <text x="640" y="49" text-anchor="middle" font-size="11" font-weight="800" fill="#f59e0b">B</text>
+    <text x="658" y="49" font-size="13" font-weight="700" fill="#0f172a">Bun (1.0+)</text>
+    <text x="630" y="72" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-bun</tspan>: Multi-provider Plugins</text>
+    <text x="630" y="90" font-size="11" fill="#475569">• <tspan fill="#0284c7">sample-bun-http</tspan>: Native Bun.serve</text>
+  </g>
+
+  <!-- ================= SECTION 4: BROWSER FRAMEWORKS ================= -->
+  <g transform="translate(40, 630)">
+    <rect width="920" height="140" rx="14" fill="#faf5ff" stroke="#a78bfa" stroke-width="1" opacity="0.95" />
+    <rect x="20" y="-12" width="230" height="24" rx="6" fill="url(#browserGrad)" />
+    <text x="135" y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BROWSER FRAMEWORKS</text>
+
+    <!-- React Box -->
+    <rect x="25" y="25" width="172" height="95" rx="8" fill="url(#boxGrad)" stroke="#61dafb" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="43" cy="45" r="9" fill="#61dafb" opacity="0.2"/>
+    <text x="43" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#61dafb">R</text>
+    <text x="58" y="49" font-size="12" font-weight="700" fill="#0f172a">React</text>
+    <text x="38" y="70" font-size="10" fill="#475569"><tspan fill="#0284c7">@nonna/react</tspan></text>
+    <text x="38" y="86" font-size="9.5" fill="#64748b">NonnaProvider +</text>
+    <text x="38" y="99" font-size="9.5" fill="#64748b">useInjection() hooks</text>
+    <text x="38" y="112" font-size="9" fill="#475569">sample-react</text>
+
+    <!-- Vue Box -->
+    <rect x="207" y="25" width="172" height="95" rx="8" fill="url(#boxGrad)" stroke="#42b883" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="225" cy="45" r="9" fill="#42b883" opacity="0.2"/>
+    <text x="225" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#42b883">V</text>
+    <text x="240" y="49" font-size="12" font-weight="700" fill="#0f172a">Vue 3</text>
+    <text x="220" y="70" font-size="10" fill="#475569"><tspan fill="#0284c7">@nonna/vue</tspan></text>
+    <text x="220" y="86" font-size="9.5" fill="#64748b">NonnaProvider +</text>
+    <text x="220" y="99" font-size="9.5" fill="#64748b">useInjection() composables</text>
+    <text x="220" y="112" font-size="9" fill="#475569">sample-vue</text>
+
+    <!-- Svelte Box -->
+    <rect x="389" y="25" width="172" height="95" rx="8" fill="url(#boxGrad)" stroke="#ff3e00" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="407" cy="45" r="9" fill="#ff3e00" opacity="0.2"/>
+    <text x="407" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#ff3e00">S</text>
+    <text x="422" y="49" font-size="12" font-weight="700" fill="#0f172a">Svelte 5</text>
+    <text x="402" y="70" font-size="10" fill="#475569"><tspan fill="#0284c7">@nonna/svelte</tspan></text>
+    <text x="402" y="86" font-size="9.5" fill="#64748b">setInjector() +</text>
+    <text x="402" y="99" font-size="9.5" fill="#64748b">useInjection() runes</text>
+    <text x="402" y="112" font-size="9" fill="#475569">sample-svelte</text>
+
+    <!-- Web Components Box -->
+    <rect x="571" y="25" width="172" height="95" rx="8" fill="url(#boxGrad)" stroke="#9333ea" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="589" cy="45" r="9" fill="#9333ea" opacity="0.2"/>
+    <text x="589" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#9333ea">W</text>
+    <text x="604" y="49" font-size="12" font-weight="700" fill="#0f172a">Web Components</text>
+    <text x="584" y="70" font-size="10" fill="#475569"><tspan fill="#0284c7">@nonna/web-components</tspan></text>
+    <text x="584" y="86" font-size="9.5" fill="#64748b">W3C Context Protocol +</text>
+    <text x="584" y="99" font-size="9.5" fill="#64748b">@inject/@optionalInject</text>
+    <text x="584" y="112" font-size="9" fill="#475569">sample-web-components</text>
+
+    <!-- Stencil Box -->
+    <rect x="753" y="25" width="172" height="95" rx="8" fill="url(#boxGrad)" stroke="#4c48ff" stroke-width="1" filter="url(#shadow)"/>
+    <circle cx="771" cy="45" r="9" fill="#4c48ff" opacity="0.2"/>
+    <text x="771" y="49" text-anchor="middle" font-size="10" font-weight="800" fill="#4c48ff">St</text>
+    <text x="789" y="49" font-size="12" font-weight="700" fill="#0f172a">StencilJS</text>
+    <text x="766" y="70" font-size="10" fill="#475569"><tspan fill="#0284c7">@nonna/stencil</tspan></text>
+    <text x="766" y="86" font-size="9.5" fill="#64748b">@Element()-based +</text>
+    <text x="766" y="99" font-size="9.5" fill="#64748b">nonna-provider interop</text>
+    <text x="766" y="112" font-size="9" fill="#475569">sample-stencil</text>
+  </g>
+
+</svg>
