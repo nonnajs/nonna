@@ -46,12 +46,12 @@ export function createInjectorModuleMatcher(
         packageRoot = undefined;
     }
 
-    const nodeModulesFallback = new RegExp(`/node_modules/${packageName.replace(/[/\\^$*+?.()|[\]{}]/g, "\\$&")}/`);
+    const nodeModulesFallback = new RegExp(`/node_modules/${packageName.replace(/[/\\^$*+?.()|[\]{}]/g, "\\$&")}(/|$)`);
 
     return (fileName: string) => {
-        const normalized = fileName.replace(/\\/g, "/");
+        const normalized = path.resolve(fileName).replace(/\\/g, "/");
         if (packageRoot) {
-            const normalizedRoot = packageRoot.replace(/\\/g, "/");
+            const normalizedRoot = path.resolve(packageRoot).replace(/\\/g, "/");
             if (normalized === normalizedRoot || normalized.startsWith(normalizedRoot + "/")) {
                 return true;
             }
