@@ -1,6 +1,6 @@
 {
     "name": "@nonnajs/react",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "React bindings for @nonnajs/di - a <NonnaProvider> context component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() hooks for zero-reflection dependency injection in React apps.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",

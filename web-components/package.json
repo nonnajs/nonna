@@ -1,6 +1,6 @@
 {
     "name": "@nonnajs/web-components",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "Web Components & Custom Elements bindings for @nonnajs/di - W3C Context Protocol provider, <nonna-provider> element, requestInjection() helpers, and @inject() decorator for custom elements.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",

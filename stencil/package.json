@@ -1,6 +1,6 @@
 {
     "name": "@nonnajs/stencil",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "StencilJS bindings for @nonnajs/di - @Inject()/@OptionalInject()/@AllInject() property decorators (via @stencil/core's getElement()), plus the W3C Context Protocol primitives re-exported from @nonnajs/web-components (provideInjector(), <nonna-provider>, requestInjection()/requestOptionalInjection()/requestAllInjections()).",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
