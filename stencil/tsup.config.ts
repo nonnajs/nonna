@@ -12,5 +12,5 @@ export default defineConfig({
     treeshake: true,
     minify: false,
     tsconfig: "tsconfig.build.json",
-    external: ["@nonna/di", "@nonna/web-components", "@stencil/core"],
+    external: ["@nonnajs/di", "@nonnajs/web-components", "@stencil/core"],
 });

@@ -34,7 +34,7 @@ function findPackageRoot(startFile: string, packageName: string): string | undef
  * Resolving the package root via `require.resolve` and comparing against it handles both a
  * plain npm install and a symlinked workspace package identically.
  */
-export function createInjectorModuleMatcher(fromDir: string, packageName = "@nonna/di"): (fileName: string) => boolean {
+export function createInjectorModuleMatcher(fromDir: string, packageName = "@nonnajs/di"): (fileName: string) => boolean {
     let packageRoot: string | undefined;
     try {
         const resolvedEntry = require.resolve(packageName, {paths: [fromDir]});

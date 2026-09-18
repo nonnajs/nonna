@@ -1,5 +1,5 @@
 {
-    "name": "@nonna/di",
+    "name": "@nonnajs/di",
     "version": "1.0.0",
     "description": "Nonna DI - A flat, zero-reflection, AOT-driven dependency injection container for TypeScript and JavaScript. Completely agnostic across Node.js, Bun, and Deno.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",

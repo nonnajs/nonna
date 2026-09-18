@@ -1,6 +1,6 @@
 import {describe, it, beforeEach, afterEach} from "node:test";
 import assert from "node:assert/strict";
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 import {defineNonnaProvider, NonnaProviderElement, requestInjector} from "../src";
 
 describe("<nonna-provider> Custom Element", () => {

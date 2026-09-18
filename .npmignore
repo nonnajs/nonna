@@ -1,0 +1,12 @@
+src/
+tsconfig.json
+tsconfig.base.json
+tsconfig.build.json
+tsconfig.tsbuildinfo
+node_modules/
+turbo/
+.prettierignore
+.eslintignore
+.eslintrc.js
+coverage/
+.coverage

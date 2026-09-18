@@ -1,4 +1,4 @@
-import type {Injector} from "@nonna/di";
+import type {Injector} from "@nonnajs/di";
 import {provideInjector} from "./context";
 
 /**
@@ -12,7 +12,7 @@ import {provideInjector} from "./context";
  * </nonna-provider>
  *
  * <script type="module">
- *     import {defineNonnaProvider} from "@nonna/web-components";
+ *     import {defineNonnaProvider} from "@nonnajs/web-components";
  *     defineNonnaProvider();
  *     document.getElementById("app-provider").injector = injector;
  * </script>

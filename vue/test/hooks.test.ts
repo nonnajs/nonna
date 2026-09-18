@@ -2,7 +2,7 @@ import {afterEach, describe, it, mock} from "node:test";
 import assert from "node:assert/strict";
 import {defineComponent, h, nextTick, ref} from "vue";
 import {mount} from "@vue/test-utils";
-import {Injector, ProviderNotFoundError} from "@nonna/di";
+import {Injector, ProviderNotFoundError} from "@nonnajs/di";
 import {NonnaProvider} from "../src/NonnaProvider";
 import {useAllInjections, useInjection, useOptionalInjection} from "../src/hooks";
 

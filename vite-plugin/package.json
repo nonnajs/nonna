@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/vite-plugin",
+    "name": "@nonnajs/vite-plugin",
     "version": "1.0.0",
-    "description": "Vite plugin for @nonna/di - aliases the handful of Node.js builtins @nonna/di's published bundle statically imports (async_hooks, fs/promises, path, url) to minimal browser-safe shims, so browser apps (React, Vue, ...) can bundle @nonna/di without a bundler error.",
+    "description": "Vite plugin for @nonnajs/di - aliases the handful of Node.js builtins @nonnajs/di's published bundle statically imports (async_hooks, fs/promises, path, url) to minimal browser-safe shims, so browser apps (React, Vue, ...) can bundle @nonnajs/di without a bundler error.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [

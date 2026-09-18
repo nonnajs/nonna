@@ -1,6 +1,6 @@
 import {describe, it, beforeEach, afterEach} from "node:test";
 import assert from "node:assert/strict";
-import {Injector, ProviderNotFoundError} from "@nonna/di";
+import {Injector, ProviderNotFoundError} from "@nonnajs/di";
 import {
     CONTEXT_REQUEST_EVENT,
     NONNA_INJECTOR_CONTEXT,
@@ -11,7 +11,7 @@ import {
     requestAllInjections,
 } from "../src";
 
-describe("@nonna/web-components context protocol", () => {
+describe("@nonnajs/web-components context protocol", () => {
     let container: HTMLDivElement;
 
     beforeEach(() => {

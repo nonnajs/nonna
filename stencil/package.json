@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/stencil",
+    "name": "@nonnajs/stencil",
     "version": "1.0.0",
-    "description": "StencilJS bindings for @nonna/di - @Inject()/@OptionalInject()/@AllInject() property decorators (via @stencil/core's getElement()), plus the W3C Context Protocol primitives re-exported from @nonna/web-components (provideInjector(), <nonna-provider>, requestInjection()/requestOptionalInjection()/requestAllInjections()).",
+    "description": "StencilJS bindings for @nonnajs/di - @Inject()/@OptionalInject()/@AllInject() property decorators (via @stencil/core's getElement()), plus the W3C Context Protocol primitives re-exported from @nonnajs/web-components (provideInjector(), <nonna-provider>, requestInjection()/requestOptionalInjection()/requestAllInjections()).",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -54,13 +54,13 @@
         "tsc": "tsc --noEmit"
     },
     "peerDependencies": {
-        "@nonna/di": "workspace:*",
-        "@nonna/web-components": "workspace:*",
+        "@nonnajs/di": "workspace:*",
+        "@nonnajs/web-components": "workspace:*",
         "@stencil/core": ">=4.0.0"
     },
     "devDependencies": {
-        "@nonna/di": "workspace:*",
-        "@nonna/web-components": "workspace:*",
+        "@nonnajs/di": "workspace:*",
+        "@nonnajs/web-components": "workspace:*",
         "@stencil/core": "^4.45.0",
         "global-jsdom": "^25.0.0",
         "jsdom": "^25.0.0",

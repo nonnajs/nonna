@@ -2,7 +2,7 @@ import type {Constructor, Dependency, DependencyDeclaration, Token} from "./type
 
 /**
  * The convergence point between decorator-driven metadata (`@Injectable`/`@Service`/`@Inject`/
- * `@Optional`, see decorators.ts) and AOT-generated code (`@nonna/compiler`): both ultimately
+ * `@Optional`, see decorators.ts) and AOT-generated code (`@nonnajs/compiler`): both ultimately
  * call {@link defineDependencies} to describe a class's constructor dependencies. The
  * {@link Injector} never inspects TypeScript types itself - it only ever reads from this store.
  */
@@ -94,7 +94,7 @@ const fieldDependencyStore = new WeakMap<Constructor, Map<PropertyKey, Dependenc
  *
  * @remarks
  * Unlike constructor parameters, there is no AOT-inferred or arity-based fallback for fields -
- * `@nonna/compiler` only analyzes constructor parameters. A field with no `@Inject()`/`@Optional()`
+ * `@nonnajs/compiler` only analyzes constructor parameters. A field with no `@Inject()`/`@Optional()`
  * is simply never touched by the injector, exactly as if it were never decorated.
  *
  * @param target - The class the field is declared on.

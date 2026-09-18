@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/react",
+    "name": "@nonnajs/react",
     "version": "1.0.0",
-    "description": "React bindings for @nonna/di - a <NonnaProvider> context component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() hooks for zero-reflection dependency injection in React apps.",
+    "description": "React bindings for @nonnajs/di - a <NonnaProvider> context component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() hooks for zero-reflection dependency injection in React apps.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -50,11 +50,11 @@
         "tsc": "tsc --noEmit"
     },
     "peerDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "react": ">=16.8.0"
     },
     "devDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "@testing-library/react": "^16.0.1",
         "@types/react": "^18.3.1",
         "@types/react-dom": "^18.3.0",

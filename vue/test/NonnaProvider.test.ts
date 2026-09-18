@@ -2,7 +2,7 @@ import {afterEach, describe, it, mock} from "node:test";
 import assert from "node:assert/strict";
 import {defineComponent, h} from "vue";
 import {mount} from "@vue/test-utils";
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 import {NonnaProvider, useInjector} from "../src";
 
 let activeWrapper: ReturnType<typeof mount> | undefined;
@@ -31,7 +31,7 @@ describe("NonnaProvider / useInjector()", () => {
     it("throws a descriptive error when called outside a NonnaProvider", () => {
         // Vue's default (no app.config.errorHandler) dev-mode error handling logs the setup()
         // error to console.error and then rethrows it - silence that expected noise, not a real
-        // failure, same as @nonna/react's equivalent test does for React's render-phase errors.
+        // failure, same as @nonnajs/react's equivalent test does for React's render-phase errors.
         const consoleError = mock.method(console, "error", () => undefined);
         try {
             assert.throws(() => mountReader(), /must be called.*inside.*NonnaProvider/s);

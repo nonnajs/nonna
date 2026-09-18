@@ -17,5 +17,7 @@ src/components.d.ts
 # Test coverage
 coverage
 .coverage
-.idea
-/.idea/
+
+# Release
+release.manifest.json
+.idea/

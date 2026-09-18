@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/vue",
+    "name": "@nonnajs/vue",
     "version": "1.0.0",
-    "description": "Vue bindings for @nonna/di - a <NonnaProvider> component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() composables for zero-reflection dependency injection in Vue 3 apps.",
+    "description": "Vue bindings for @nonnajs/di - a <NonnaProvider> component plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() composables for zero-reflection dependency injection in Vue 3 apps.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -51,11 +51,11 @@
         "tsc": "tsc --noEmit"
     },
     "peerDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "vue": ">=3.2.0"
     },
     "devDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "@vue/test-utils": "^2.4.6",
         "global-jsdom": "^25.0.0",
         "jsdom": "^25.0.0",

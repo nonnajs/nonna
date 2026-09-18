@@ -2,7 +2,7 @@
  * A constructor for a concrete class `T`.
  *
  * @remarks
- * Preferred as a {@link Token} because it is inferable by `@nonna/compiler` without any
+ * Preferred as a {@link Token} because it is inferable by `@nonnajs/compiler` without any
  * decorator, and gives the injector a runtime identity to key registrations on.
  */
 export type Constructor<T = unknown> = new (...args: any[]) => T;

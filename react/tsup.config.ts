@@ -12,5 +12,5 @@ export default defineConfig({
     treeshake: true,
     minify: false,
     tsconfig: "tsconfig.build.json",
-    external: ["react", "react-dom", "@nonna/di"],
+    external: ["react", "react-dom", "@nonnajs/di"],
 });

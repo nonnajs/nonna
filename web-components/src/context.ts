@@ -1,4 +1,4 @@
-import type {Injector, Token} from "@nonna/di";
+import type {Injector, Token} from "@nonnajs/di";
 
 /**
  * Standard W3C Context Protocol event name.
@@ -9,7 +9,7 @@ export const CONTEXT_REQUEST_EVENT = "context-request";
 /**
  * Unique identifier for Nonna Injector context in the W3C Context Protocol.
  */
-export const NONNA_INJECTOR_CONTEXT = Symbol.for("@nonna/di/injector");
+export const NONNA_INJECTOR_CONTEXT = Symbol.for("@nonnajs/di/injector");
 
 /**
  * Event detail payload for standard W3C Context Protocol requests.

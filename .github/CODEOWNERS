@@ -1,0 +1,32 @@
+# CODEOWNERS file for nodejs-boot/nonna
+# This file defines who is responsible for code in this repository.
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+#
+# More details: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @nodejs-boot/core-team
+
+# Package-specific ownership
+/compiler/ @nodejs-boot/core-team
+/di/ @nodejs-boot/core-team
+/react/ @nodejs-boot/core-team
+/vue/ @nodejs-boot/core-team
+/svelte/ @nodejs-boot/core-team
+/web-components/ @nodejs-boot/core-team
+/stencil/ @nodejs-boot/core-team
+/vite-plugin/ @nodejs-boot/core-team
+/samples/ @nodejs-boot/core-team
+
+# Configuration files
+/.github/ @nodejs-boot/core-team
+*.json @nodejs-boot/core-team
+*.yaml @nodejs-boot/core-team
+*.yml @nodejs-boot/core-team
+*.js @nodejs-boot/core-team
+*.mjs @nodejs-boot/core-team
+*.ts @nodejs-boot/core-team
+
+# Documentation
+*.md @nodejs-boot/core-team

@@ -1,4 +1,4 @@
-import type {Token} from "@nonna/di";
+import type {Token} from "@nonnajs/di";
 import {requestAllInjections, requestInjection, requestOptionalInjection} from "./context";
 
 /**

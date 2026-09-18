@@ -1,6 +1,6 @@
-# `@nonna/svelte`
+# `@nonnajs/svelte`
 
-> Svelte bindings for [`@nonna/di`](../di) - `setInjector()` context helper plus `useInjection()`/`useOptionalInjection()`/`useAllInjections()`/`useInjector()` functions for zero-reflection dependency injection in Svelte apps.
+> Svelte bindings for [`@nonnajs/di`](../di) - `setInjector()` context helper plus `useInjection()`/`useOptionalInjection()`/`useAllInjections()`/`useInjector()` functions for zero-reflection dependency injection in Svelte apps.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -9,10 +9,10 @@
 ## Installation
 
 ```sh
-npm install @nonna/svelte @nonna/di svelte
+npm install @nonnajs/svelte @nonnajs/di svelte
 ```
 
-`@nonna/di` and `svelte` are peer dependencies - bring your own versions (Svelte `>=4.0` or `>=5.0`, any `@nonna/di` `1.x`).
+`@nonnajs/di` and `svelte` are peer dependencies - bring your own versions (Svelte `>=4.0` or `>=5.0`, any `@nonnajs/di` `1.x`).
 
 ---
 
@@ -21,7 +21,7 @@ npm install @nonna/svelte @nonna/di svelte
 ```svelte
 <!-- UserList.svelte -->
 <script lang="ts">
-import {useInjection} from "@nonna/svelte";
+import {useInjection} from "@nonnajs/svelte";
 import {UserService} from "./user.service";
 
 const userService = useInjection(UserService);
@@ -38,8 +38,8 @@ const users = userService.getUsers();
 ```svelte
 <!-- App.svelte -->
 <script lang="ts">
-import type {Injector} from "@nonna/di";
-import {setInjector} from "@nonna/svelte";
+import type {Injector} from "@nonnajs/di";
+import {setInjector} from "@nonnajs/svelte";
 import UserList from "./UserList.svelte";
 
 let {injector} = $props<{injector: Injector}>();
@@ -52,7 +52,7 @@ setInjector(injector);
 ```ts
 // main.ts
 import {mount} from "svelte";
-import {Nonna} from "@nonna/di";
+import {Nonna} from "@nonnajs/di";
 import App from "./App.svelte";
 
 // 1. Configure and boot the container once, at your app's entry point - not inside component initialization.
@@ -102,7 +102,7 @@ Resolves every provider registered for `token` (for `multi: true` tokens) - mirr
 
 ## Bundling For The Browser
 
-`@nonna/di`'s published bundle statically imports a handful of Node builtins (`node:async_hooks`, `node:fs/promises`, `node:path`, `node:url`) that a real browser bundler can't resolve on its own. If you're using Vite, [`@nonna/vite-plugin`](../vite-plugin) aliases them to browser-safe shims with a single `plugins: [nonna()]` entry.
+`@nonnajs/di`'s published bundle statically imports a handful of Node builtins (`node:async_hooks`, `node:fs/promises`, `node:path`, `node:url`) that a real browser bundler can't resolve on its own. If you're using Vite, [`@nonnajs/vite-plugin`](../vite-plugin) aliases them to browser-safe shims with a single `plugins: [nonna()]` entry.
 
 ---
 

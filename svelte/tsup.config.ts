@@ -12,5 +12,5 @@ export default defineConfig({
     treeshake: true,
     minify: false,
     tsconfig: "tsconfig.build.json",
-    external: ["svelte", "@nonna/di"],
+    external: ["svelte", "@nonnajs/di"],
 });

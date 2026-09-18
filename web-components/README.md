@@ -1,6 +1,6 @@
-# `@nonna/web-components`
+# `@nonnajs/web-components`
 
-> Web Components & Custom Elements bindings for [`@nonna/di`](../di) - standard W3C Context Protocol provider, `<nonna-provider>` custom element, resolution functions, and `@inject()` decorators.
+> Web Components & Custom Elements bindings for [`@nonnajs/di`](../di) - standard W3C Context Protocol provider, `<nonna-provider>` custom element, resolution functions, and `@inject()` decorators.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -9,10 +9,10 @@
 ## Installation
 
 ```sh
-npm install @nonna/web-components @nonna/di
+npm install @nonnajs/web-components @nonnajs/di
 ```
 
-`@nonna/di` is a peer dependency (any `@nonna/di` `1.x`).
+`@nonnajs/di` is a peer dependency (any `@nonnajs/di` `1.x`).
 
 ---
 
@@ -20,7 +20,7 @@ npm install @nonna/web-components @nonna/di
 
 ```ts
 // src/components/user-list.ts
-import {requestInjection} from "@nonna/web-components";
+import {requestInjection} from "@nonnajs/web-components";
 import {UserService} from "../services/user.service";
 
 export class UserListElement extends HTMLElement {
@@ -46,8 +46,8 @@ customElements.define("user-list", UserListElement);
 </nonna-provider>
 
 <script type="module">
-    import {defineNonnaProvider} from "@nonna/web-components";
-    import {Nonna} from "@nonna/di";
+    import {defineNonnaProvider} from "@nonnajs/web-components";
+    import {Nonna} from "@nonnajs/di";
 
     defineNonnaProvider();
 
@@ -71,7 +71,7 @@ customElements.define("user-list", UserListElement);
 ```ts
 import {LitElement, html} from "lit";
 import {customElement} from "lit/decorators.js";
-import {inject} from "@nonna/web-components";
+import {inject} from "@nonnajs/web-components";
 import {UserService} from "../services/user.service";
 
 @customElement("lit-user-list")
@@ -126,7 +126,7 @@ Resolves multi-providers for `token` via `injector.getAll(token)`.
 Custom element implementing `provideInjector` automatically when attached to DOM.
 
 ```ts
-import {defineNonnaProvider} from "@nonna/web-components";
+import {defineNonnaProvider} from "@nonnajs/web-components";
 defineNonnaProvider(); // registers <nonna-provider>
 ```
 

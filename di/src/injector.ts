@@ -117,7 +117,7 @@ function newResolutionPath(): ResolutionPath {
  *
  * @remarks
  * Zero reflection, zero runtime dependencies - dependency metadata always comes from either the
- * `@Injectable()`/`@Inject()`/`@Optional()` decorators or `@nonna/compiler`'s AOT-generated
+ * `@Injectable()`/`@Inject()`/`@Optional()` decorators or `@nonnajs/compiler`'s AOT-generated
  * {@link defineDependencies} calls, never from `reflect-metadata`.
  *
  * Instances are never constructed with `new Injector()` directly - use the static
@@ -611,7 +611,7 @@ export class Injector {
         if (unresolved.size > 0) {
             throw new InvalidProviderError(
                 `The following classes have unresolved constructor dependencies (no @Inject() and the AOT compiler ` +
-                    `did not run): ${[...unresolved].join(", ")}. Add @Inject(TOKEN) or run @nonna/compiler.`,
+                    `did not run): ${[...unresolved].join(", ")}. Add @Inject(TOKEN) or run @nonnajs/compiler.`,
             );
         }
         if (missing.length > 0) {
@@ -925,7 +925,7 @@ export class Injector {
         return new InvalidProviderError(
             `${describeToken(consumer)} has an unresolved constructor dependency. Add @Inject(TOKEN) ` +
                 `(or @Optional()/@Optional(TOKEN) if it's optional), or run the AOT compiler ` +
-                `(@nonna/compiler) to infer concrete-class dependencies automatically.`,
+                `(@nonnajs/compiler) to infer concrete-class dependencies automatically.`,
             consumer,
         );
     }

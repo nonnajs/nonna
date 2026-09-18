@@ -10,7 +10,7 @@ import {findInjectableClasses, getConstructorParameters, resolveInjectorSymbols}
 import type {AggregatorEntry} from "./codegen";
 import type {ResolvedDependency} from "./resolver";
 
-/** A named export from a module that should be treated as equivalent to a built-in `@nonna/di` decorator. */
+/** A named export from a module that should be treated as equivalent to a built-in `@nonnajs/di` decorator. */
 export interface DecoratorSource {
     moduleSpecifier: string;
     exportName: string;
@@ -23,17 +23,17 @@ export interface CompileOptions {
     outputFile: string;
     /** Module specifier the generated file imports `defineDependencies` from. */
     injectorModuleSpecifier?: string;
-    /** Identifies which Program source file(s) are "the @nonna/di module" - defaults to node_modules resolution. */
+    /** Identifies which Program source file(s) are "the @nonnajs/di module" - defaults to node_modules resolution. */
     matchInjectorModule?: (fileName: string) => boolean;
     /**
-     * Additional class-level decorators (beyond `@Injectable()`/`@Service()` from `@nonna/di`)
-     * that should also mark a class as injectable - e.g. a framework built on top of `@nonna/di`
+     * Additional class-level decorators (beyond `@Injectable()`/`@Service()` from `@nonnajs/di`)
+     * that should also mark a class as injectable - e.g. a framework built on top of `@nonnajs/di`
      * with its own `@Component()`/`@Controller()`.
      */
     additionalInjectableDecorators?: readonly DecoratorSource[];
-    /** Additional parameter decorators (beyond `@Inject()` from `@nonna/di`) treated as explicit tokens. */
+    /** Additional parameter decorators (beyond `@Inject()` from `@nonnajs/di`) treated as explicit tokens. */
     additionalInjectDecorators?: readonly DecoratorSource[];
-    /** Additional parameter decorators (beyond `@Optional()` from `@nonna/di`) treated as optional tokens. */
+    /** Additional parameter decorators (beyond `@Optional()` from `@nonnajs/di`) treated as optional tokens. */
     additionalOptionalDecorators?: readonly DecoratorSource[];
 }
 
@@ -43,7 +43,7 @@ export type CompileResult =
 
 export function compile(options: CompileOptions): CompileResult {
     const {program, checker} = createProgramFromTsConfig(options.project);
-    const injectorModuleSpecifier = options.injectorModuleSpecifier ?? "@nonna/di";
+    const injectorModuleSpecifier = options.injectorModuleSpecifier ?? "@nonnajs/di";
     const matcher =
         options.matchInjectorModule ??
         createInjectorModuleMatcher(path.dirname(options.project), injectorModuleSpecifier);

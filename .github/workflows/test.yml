@@ -1,0 +1,82 @@
+name: Test
+on:
+    workflow_dispatch:
+
+    push:
+        branches:
+            - main
+
+    pull_request_target:
+        types:
+            - opened
+            - reopened
+            - synchronize
+            - ready_for_review
+        paths:
+            - "compiler/**"
+            - "di/**"
+            - "react/**"
+            - "vue/**"
+            - "svelte/**"
+            - "web-components/**"
+            - "stencil/**"
+            - "vite-plugin/**"
+            - "samples/**"
+            - "package.json"
+            - "pnpm-lock.yaml"
+            - "pnpm-workspace.yaml"
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: false
+
+jobs:
+    test:
+        name: test (${{ matrix.name }})
+        runs-on: [ubuntu-latest]
+        if: (!github.event.pull_request || github.event.pull_request.draft == false)
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - name: packages
+                      filter: '--filter="@nonna/compiler" --filter="@nonna/di" --filter="@nonna/react" --filter="@nonna/vue" --filter="@nonna/svelte" --filter="@nonna/web-components" --filter="@nonna/stencil" --filter="@nonna/vite-plugin"'
+                    - name: samples
+                      filter: '--filter="./samples/*"'
+        env:
+            CI: true
+            NODE_OPTIONS: --max-old-space-size=4096
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+              name: Install pnpm
+              with:
+                  run_install: false
+
+            - name: Use node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+                  cache: "pnpm"
+
+            - name: Install dependencies
+              shell: bash
+              run: pnpm install --frozen-lockfile
+
+            - name: Test with coverage
+              run: |
+                  pnpm turbo run test:coverage ${{ matrix.filter }}
+
+            - name: Upload coverage to Codecov
+              if: always()
+              uses: codecov/codecov-action@v5
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: nodejs-boot/nonna
+                  fail_ci_if_error: false
+                  verbose: true
+                  flags: ${{ matrix.name }}

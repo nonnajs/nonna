@@ -1,15 +1,15 @@
 /**
- * `@nonna/stencil` - StencilJS bindings for `@nonna/di`.
+ * `@nonnajs/stencil` - StencilJS bindings for `@nonnajs/di`.
  *
  * @remarks
  * A Stencil component compiles down to a real custom element, so it can be wired into the same
  * standard {@link https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md | W3C Context Protocol}
- * provider (`<nonna-provider>` / `provideInjector()`) that `@nonna/web-components` implements -
+ * provider (`<nonna-provider>` / `provideInjector()`) that `@nonnajs/web-components` implements -
  * there is nothing Stencil-specific about *providing* or *requesting* an {@link Injector} over the
  * DOM, so those functions are re-exported here as-is rather than duplicated.
  *
  * What *is* Stencil-specific is `@Inject()`/`@OptionalInject()`/`@AllInject()`: property decorators
- * that resolve a dependency on access, the same ergonomics as `@nonna/web-components`'s
+ * that resolve a dependency on access, the same ergonomics as `@nonnajs/web-components`'s
  * `@inject()`, but using `getElement()` from `@stencil/core` (its public API for getting a
  * component's host element from anywhere in the instance) instead of `this` - `this` inside a
  * Stencil component class is not guaranteed to be the actual `HTMLElement`, unlike a plain custom
@@ -18,7 +18,7 @@
  * @example
  * ```tsx
  * import {Component, h, State} from "@stencil/core";
- * import {Inject} from "@nonna/stencil";
+ * import {Inject} from "@nonnajs/stencil";
  * import {UserService} from "../services/user.service";
  * import type {User} from "../services/user.repository";
  *
@@ -55,6 +55,6 @@ export {
     requestAllInjections,
     defineNonnaProvider,
     NonnaProviderElement,
-} from "@nonna/web-components";
-export type {ContextRequestDetail} from "@nonna/web-components";
+} from "@nonnajs/web-components";
+export type {ContextRequestDetail} from "@nonnajs/web-components";
 export {Inject, OptionalInject, AllInject} from "./decorators";

@@ -22,10 +22,10 @@ describe("codegen", () => {
             },
         ];
 
-        const source = generateAggregatorSource(entries, "@nonna/di");
+        const source = generateAggregatorSource(entries, "@nonnajs/di");
 
         assert.match(source, /AUTO-GENERATED/);
-        assert.match(source, /import \{ ?defineDependencies ?\} from "@nonna\/di";/);
+        assert.match(source, /import \{ ?defineDependencies ?\} from "@nonnajs\/di";/);
         assert.match(source, /import \{ ?UserService ?\} from "\.\/services\/UserService";/);
         assert.match(source, /import \{ ?UserRepository ?\} from "\.\/repos\/UserRepository";/);
         assert.match(source, /defineDependencies\(UserService, \[[\s\S]*UserRepository[\s\S]*\]\);/);
@@ -42,7 +42,7 @@ describe("codegen", () => {
             },
         ];
 
-        const source = generateAggregatorSource(entries, "@nonna/di");
+        const source = generateAggregatorSource(entries, "@nonnajs/di");
         assert.match(
             source,
             /defineDependencies\(UserService, \[[\s\S]*\{ ?token: Metrics, ?optional: true ?\}[\s\S]*\]\);/,
@@ -61,7 +61,7 @@ describe("codegen", () => {
             },
         ];
 
-        const source = generateAggregatorSource(entries, "@nonna/di");
+        const source = generateAggregatorSource(entries, "@nonnajs/di");
         assert.match(source, /import \{ ?Repository ?\} from "\.\/a\/Repository";/);
         assert.match(source, /import \{ ?Repository as Repository_1 ?\} from "\.\/b\/Repository";/);
         assert.match(source, /defineDependencies\(Repository, \[\]\);/);
@@ -76,7 +76,7 @@ describe("codegen", () => {
             },
         ];
 
-        const source = generateAggregatorSource(entries, "@nonna/di");
+        const source = generateAggregatorSource(entries, "@nonnajs/di");
         assert.match(source, /defineDependencies\(UserService, \[[\s\S]*"some-token"[\s\S]*\]\);/);
     });
 });

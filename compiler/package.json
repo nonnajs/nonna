@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/compiler",
+    "name": "@nonnajs/compiler",
     "version": "1.0.0",
-    "description": "Ahead-of-Time TypeScript TypeChecker-based dependency compiler for @nonna/di. Infers constructor dependencies at build time with zero runtime reflection.",
+    "description": "Ahead-of-Time TypeScript TypeChecker-based dependency compiler for @nonnajs/di. Infers constructor dependencies at build time with zero runtime reflection.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -40,7 +40,7 @@
     },
     "devDependencies": {
         "typescript": "^5.9.2",
-        "@nonna/di": "workspace:*"
+        "@nonnajs/di": "workspace:*"
     },
     "files": [
         "dist",

@@ -1,6 +1,6 @@
 import {describe, it, beforeEach, afterEach} from "node:test";
 import assert from "node:assert/strict";
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 import {provideInjector, Inject, OptionalInject, AllInject} from "../src";
 
 // `@stencil/core`'s published `getElement()` defaults to an identity function outside Stencil's
@@ -9,7 +9,7 @@ import {provideInjector, Inject, OptionalInject, AllInject} from "../src";
 // component class extends `HTMLElement` directly, so `getElement(this) === this`). That means a
 // plain class extending `HTMLElement`, used exactly like a real Stencil component under that
 // build target, exercises the *real*, unmocked `@stencil/core` API end-to-end here.
-describe("@nonna/stencil property decorators", () => {
+describe("@nonnajs/stencil property decorators", () => {
     let container: HTMLDivElement;
 
     beforeEach(() => {

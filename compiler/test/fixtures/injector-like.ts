@@ -1,4 +1,4 @@
-// Stands in for @nonna/di's public decorator API in fixture programs, so tests don't
+// Stands in for @nonnajs/di's public decorator API in fixture programs, so tests don't
 // need to build against the real published package.
 export type Constructor<T = unknown> = new (...args: any[]) => T;
 export type AbstractConstructor<T = unknown> = abstract new (...args: any[]) => T;

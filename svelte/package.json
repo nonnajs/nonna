@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/svelte",
+    "name": "@nonnajs/svelte",
     "version": "1.0.0",
-    "description": "Svelte bindings for @nonna/di - setInjector() context helper plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() functions for zero-reflection dependency injection in Svelte apps.",
+    "description": "Svelte bindings for @nonnajs/di - setInjector() context helper plus useInjection()/useOptionalInjection()/useAllInjections()/useInjector() functions for zero-reflection dependency injection in Svelte apps.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -50,11 +50,11 @@
         "tsc": "tsc --noEmit"
     },
     "peerDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "svelte": ">=4.0.0 || >=5.0.0"
     },
     "devDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "global-jsdom": "^25.0.0",
         "jsdom": "^25.0.0",
         "svelte": "^5.0.0",

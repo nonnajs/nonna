@@ -1,6 +1,6 @@
-# `@nonna/stencil`
+# `@nonnajs/stencil`
 
-> StencilJS bindings for [`@nonna/di`](../di) - `@Inject()`/`@OptionalInject()`/`@AllInject()` property decorators, plus the standard W3C Context Protocol provider and resolution functions from [`@nonna/web-components`](../web-components).
+> StencilJS bindings for [`@nonnajs/di`](../di) - `@Inject()`/`@OptionalInject()`/`@AllInject()` property decorators, plus the standard W3C Context Protocol provider and resolution functions from [`@nonnajs/web-components`](../web-components).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -9,10 +9,10 @@
 ## Installation
 
 ```sh
-npm install @nonna/stencil @nonna/di @nonna/web-components @stencil/core
+npm install @nonnajs/stencil @nonnajs/di @nonnajs/web-components @stencil/core
 ```
 
-`@nonna/di`, `@nonna/web-components`, and `@stencil/core` (`>=4.0.0`) are peer dependencies.
+`@nonnajs/di`, `@nonnajs/web-components`, and `@stencil/core` (`>=4.0.0`) are peer dependencies.
 
 ---
 
@@ -21,7 +21,7 @@ npm install @nonna/stencil @nonna/di @nonna/web-components @stencil/core
 A Stencil component compiles down to a real custom element, so _providing_/_requesting_ an
 `Injector` over the DOM is not Stencil-specific at all - it's exactly the
 [W3C Context Protocol](https://github.com/webcomponents-cg/community-protocols/blob/main/proposals/context.md)
-implementation `@nonna/web-components` already ships (`<nonna-provider>`, `provideInjector()`,
+implementation `@nonnajs/web-components` already ships (`<nonna-provider>`, `provideInjector()`,
 `requestInjection()`/`requestOptionalInjection()`/`requestAllInjections()`), re-exported here as-is.
 
 What _is_ Stencil-specific is how a component gets hold of its own host element to pass to those
@@ -38,7 +38,7 @@ you don't need a separate `@Element()` field just to read a dependency.
 ```tsx
 // src/components/user-list.tsx
 import {Component, h, State} from "@stencil/core";
-import {Inject} from "@nonna/stencil";
+import {Inject} from "@nonnajs/stencil";
 import {UserService} from "../services/user.service";
 import type {User} from "../services/user.repository";
 
@@ -71,8 +71,8 @@ export class UserList {
 <nonna-provider id="app-provider"></nonna-provider>
 
 <script type="module">
-    import {defineNonnaProvider} from "@nonna/stencil";
-    import {Nonna} from "@nonna/di";
+    import {defineNonnaProvider} from "@nonnajs/stencil";
+    import {Nonna} from "@nonnajs/di";
 
     defineNonnaProvider();
 
@@ -81,7 +81,7 @@ export class UserList {
     provider.injector = injector;
 
     // Only define/append the Stencil consumer components *after* the provider is ready -
-    // see the sample app for why (the same DOM-upgrade-timing trap `@nonna/web-components`
+    // see the sample app for why (the same DOM-upgrade-timing trap `@nonnajs/web-components`
     // documents applies here too).
     await import("./build/app.esm.js");
     provider.innerHTML = "<user-list></user-list>";
@@ -108,7 +108,7 @@ once `target` is `ES2022`+) also emit a per-instance field initializer that defi
 `undefined` property on every instance, silently shadowing the prototype getter and making the
 property resolve to `undefined` forever.
 
-### Context Protocol Functions (re-exported from `@nonna/web-components`)
+### Context Protocol Functions (re-exported from `@nonnajs/web-components`)
 
 -   `provideInjector(host: EventTarget, injector: Injector): () => void`
 -   `requestInjector(element: EventTarget): Injector`

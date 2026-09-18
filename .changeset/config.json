@@ -1,0 +1,22 @@
+{
+    "$schema": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
+    "changelog": "./nonna-changelog.js",
+    "commit": false,
+    "linked": [],
+    "access": "public",
+    "baseBranch": "main",
+    "updateInternalDependencies": "patch",
+    "ignore": [
+        "@nonna/sample-bun",
+        "@nonna/sample-bun-http",
+        "@nonna/sample-deno",
+        "@nonna/sample-deno-http",
+        "@nonna/sample-node",
+        "@nonna/sample-node-http",
+        "@nonna/sample-react",
+        "@nonna/sample-stencil",
+        "@nonna/sample-svelte",
+        "@nonna/sample-vue",
+        "@nonna/sample-web-components"
+    ]
+}

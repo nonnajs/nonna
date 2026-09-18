@@ -1,11 +1,11 @@
-import type {Token} from "@nonna/di";
+import type {Token} from "@nonnajs/di";
 import {useInjector} from "./NonnaProvider";
 
 /**
  * Resolves `token` from the nearest {@link NonnaProvider}'s {@link Injector}, synchronously.
  *
  * @remarks
- * Unlike `@nonna/react`'s `useInjection()`, this needs no memoization: a Vue component's
+ * Unlike `@nonnajs/react`'s `useInjection()`, this needs no memoization: a Vue component's
  * `setup()` runs exactly once per component instance (Vue re-renders by re-running the *render*
  * function, not `setup()`), so calling `injector.get(token)` here already resolves at most once
  * per instance - the same "resolve once, reuse across re-renders" behavior React's hook needs
@@ -15,13 +15,13 @@ import {useInjector} from "./NonnaProvider";
  *
  * @param token - The token to resolve.
  * @returns The resolved instance/value.
- * @throws Whatever `Injector.get()` throws - see its docs in `@nonna/di`.
+ * @throws Whatever `Injector.get()` throws - see its docs in `@nonnajs/di`.
  * @throws {@link Error} if called outside a {@link NonnaProvider}.
  *
  * @example
  * ```vue
  * <script setup lang="ts">
- * import {useInjection} from "@nonna/vue";
+ * import {useInjection} from "@nonnajs/vue";
  * import {UserService} from "./user.service";
  *
  * const userService = useInjection(UserService);

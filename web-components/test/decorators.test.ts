@@ -1,6 +1,6 @@
 import {describe, it, beforeEach, afterEach} from "node:test";
 import assert from "node:assert/strict";
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 import {provideInjector, inject, optionalInject, allInject} from "../src";
 
 describe("Custom Elements Property Decorators", () => {

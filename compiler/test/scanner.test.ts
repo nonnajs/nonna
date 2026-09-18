@@ -14,7 +14,7 @@ describe("scanner", () => {
         assert.ok(names.includes("UserService"));
     });
 
-    it("does not mistake other libraries' Inject for @nonna/di's Inject", () => {
+    it("does not mistake other libraries' Inject for @nonnajs/di's Inject", () => {
         const {program, checker, symbols} = createFixtureProgram([fixturePath("app/collision.ts")]);
         const classes = findInjectableClasses(program, checker, symbols);
         const consumer = classes.find(c => c.declaration.name!.text === "CollisionConsumer")!;

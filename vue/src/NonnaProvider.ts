@@ -1,4 +1,4 @@
-import type {Injector} from "@nonna/di";
+import type {Injector} from "@nonnajs/di";
 import type {InjectionKey, PropType, Slots, VNode} from "vue";
 import {defineComponent, inject, provide, toRaw} from "vue";
 
@@ -17,14 +17,14 @@ export const NONNA_INJECTOR_KEY: InjectionKey<Injector> = Symbol.for("nonna:vue:
  * (`await Nonna.injector()...build()`) is async and belongs in your app's entry point, before the
  * first `app.mount()`, not inside the component tree. This keeps `NonnaProvider` itself trivial (a
  * single `provide()` call) and leaves loading-state handling (if you need one at all) entirely up
- * to you, the same way `@nonna/react`'s `<NonnaProvider>` works.
+ * to you, the same way `@nonnajs/react`'s `<NonnaProvider>` works.
  *
  * @example
  * ```vue
  * <!-- App.vue -->
  * <script setup lang="ts">
- * import type {Injector} from "@nonna/di";
- * import {NonnaProvider} from "@nonna/vue";
+ * import type {Injector} from "@nonnajs/di";
+ * import {NonnaProvider} from "@nonnajs/vue";
  * defineProps<{injector: Injector}>();
  * </script>
  *

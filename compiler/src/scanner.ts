@@ -3,11 +3,11 @@ import ts from "typescript";
 import {getDecorators, isProjectSourceFile} from "./program";
 
 /**
- * The `@nonna/di` decorator/helper symbols this compiler recognizes, resolved once per
+ * The `@nonnajs/di` decorator/helper symbols this compiler recognizes, resolved once per
  * Program by their *declaration*, never by name. This is what lets the compiler tell `Inject`
- * imported from `@nonna/di` apart from a same-named `Inject` imported from another library.
+ * imported from `@nonnajs/di` apart from a same-named `Inject` imported from another library.
  *
- * Each set can hold more than one symbol: a framework built on top of `@nonna/di` (e.g.
+ * Each set can hold more than one symbol: a framework built on top of `@nonnajs/di` (e.g.
  * Node-Boot's `@Component`/`@Service`/`@Controller`/`@Middleware`/`@Interceptor`/`@Inject`) can
  * register its own decorators as additional, equally-valid triggers - see
  * `resolveInjectorSymbols()`'s `additional` parameter.
@@ -69,10 +69,10 @@ function resolveAll(
 }
 
 /**
- * Resolves the canonical @nonna/di export symbols from the given Program, plus any
+ * Resolves the canonical @nonnajs/di export symbols from the given Program, plus any
  * `additional` decorator sources a downstream framework registers as equivalent triggers.
- * `matchesFile` identifies which source file(s) in the Program are "the @nonna/di module" - in
- * production this matches `node_modules/@nonna/di`, in tests it points at a fixture
+ * `matchesFile` identifies which source file(s) in the Program are "the @nonnajs/di module" - in
+ * production this matches `node_modules/@nonnajs/di`, in tests it points at a fixture
  * standing in for the real package.
  */
 export function resolveInjectorSymbols(
@@ -119,7 +119,7 @@ export interface InjectableClass {
 
 /**
  * Finds every class declaration, across every project source file, decorated with the real
- * @Injectable()/@Service() from @nonna/di (verified by symbol identity, not by name).
+ * @Injectable()/@Service() from @nonnajs/di (verified by symbol identity, not by name).
  */
 export function findInjectableClasses(
     program: ts.Program,

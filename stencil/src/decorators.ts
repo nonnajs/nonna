@@ -1,6 +1,6 @@
-import type {Token} from "@nonna/di";
+import type {Token} from "@nonnajs/di";
 import {getElement} from "@stencil/core";
-import {requestAllInjections, requestInjection, requestOptionalInjection} from "@nonna/web-components";
+import {requestAllInjections, requestInjection, requestOptionalInjection} from "@nonnajs/web-components";
 
 /**
  * Property decorator for Stencil components that resolves `token` from the nearest ancestor
@@ -17,7 +17,7 @@ import {requestAllInjections, requestInjection, requestOptionalInjection} from "
  * `useDefineForClassFields`, the default once `target` is `ES2022`+) also emit a per-instance
  * field initializer that defines an own `undefined` property on every instance, silently shadowing
  * the prototype getter and making the property resolve to `undefined` forever - see
- * `@nonna/web-components`'s `inject()` docs for the full explanation of this trap.
+ * `@nonnajs/web-components`'s `inject()` docs for the full explanation of this trap.
  *
  * @param token - The dependency token to resolve.
  *

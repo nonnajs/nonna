@@ -19,7 +19,7 @@ describe("Zero-runtime-dependency guardrail", () => {
         const forbidden = [
             /from ["']typescript["']/,
             /from ["']reflect-metadata["']/,
-            /from ["']@nonna\/compiler["']/,
+            /from ["']@nonnajs\/compiler["']/,
             /Reflect\.(get|define)Metadata/,
         ];
 

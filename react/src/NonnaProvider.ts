@@ -1,4 +1,4 @@
-import type {Injector} from "@nonna/di";
+import type {Injector} from "@nonnajs/di";
 import {createContext, createElement, useContext} from "react";
 import type {ReactElement, ReactNode} from "react";
 

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import type {ReactNode} from "react";
 import {createElement} from "react";
 import {cleanup, renderHook} from "@testing-library/react";
-import {Injector} from "@nonna/di";
+import {Injector} from "@nonnajs/di";
 import {NonnaProvider, useInjector} from "../src";
 
 afterEach(cleanup);

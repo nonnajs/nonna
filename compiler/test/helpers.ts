@@ -36,7 +36,7 @@ export function createFixtureProgram(rootFiles: readonly string[]): {
 /**
  * Same as `createFixtureProgram()`, but also recognizes the `nodeboot-like` fixture package's
  * `Component`/`Inject` as additional decorator sources - simulating a framework (Node-Boot) built
- * on top of `@nonna/di` that registers its own decorators as equivalent triggers. `nodeboot-like`
+ * on top of `@nonnajs/di` that registers its own decorators as equivalent triggers. `nodeboot-like`
  * is a real package under `test/fixtures/node_modules/`, resolved the same way the real
  * `@nodeboot/core` would be in production.
  */

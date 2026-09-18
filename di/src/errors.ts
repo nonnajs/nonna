@@ -7,7 +7,7 @@ export function describeToken(token: Token): string {
 }
 
 /**
- * Base class for every error `@nonna/di` throws.
+ * Base class for every error `@nonnajs/di` throws.
  *
  * @remarks
  * Sets `this.name` to the concrete subclass name (via `new.target`) so `error.name` is always

@@ -1,4 +1,4 @@
-import type {Injector} from "@nonna/di";
+import type {Injector} from "@nonnajs/di";
 import {getContext, hasContext, setContext} from "svelte";
 
 /**
@@ -16,8 +16,8 @@ export const NONNA_INJECTOR_KEY = Symbol("NonnaInjector");
  * @example
  * ```svelte
  * <script lang="ts">
- * import {setInjector} from "@nonna/svelte";
- * import type {Injector} from "@nonna/di";
+ * import {setInjector} from "@nonnajs/svelte";
+ * import type {Injector} from "@nonnajs/di";
  *
  * let {injector} = $props<{injector: Injector}>();
  * setInjector(injector);

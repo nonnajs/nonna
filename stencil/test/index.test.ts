@@ -1,6 +1,6 @@
 import {describe, it, beforeEach, afterEach} from "node:test";
 import assert from "node:assert/strict";
-import {Injector, ProviderNotFoundError} from "@nonna/di";
+import {Injector, ProviderNotFoundError} from "@nonnajs/di";
 import {
     CONTEXT_REQUEST_EVENT,
     NONNA_INJECTOR_CONTEXT,
@@ -13,11 +13,11 @@ import {
     NonnaProviderElement,
 } from "../src";
 
-// `@nonna/stencil` re-exports `@nonna/web-components`'s context-protocol implementation as-is -
+// `@nonnajs/stencil` re-exports `@nonnajs/web-components`'s context-protocol implementation as-is -
 // these tests confirm the re-export wires up correctly end-to-end (constants, provider element,
 // and every resolution function), simulating a Stencil component by using its host `HTMLElement`
 // directly, exactly as `@Element()` would hand it to `componentWillLoad()`.
-describe("@nonna/stencil re-exports", () => {
+describe("@nonnajs/stencil re-exports", () => {
     let host: HTMLDivElement;
 
     beforeEach(() => {

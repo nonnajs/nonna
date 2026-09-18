@@ -1,7 +1,7 @@
 import {describe, it} from "node:test";
 import assert from "node:assert/strict";
 import {render} from "svelte/server";
-import {Injector, ProviderNotFoundError} from "@nonna/di";
+import {Injector, ProviderNotFoundError} from "@nonnajs/di";
 import {
     setInjector,
     hasInjector,
@@ -30,7 +30,7 @@ function renderComponent(fn: ($$renderer: AnyRenderer) => void) {
     void res.body;
 }
 
-describe("@nonna/svelte context & hooks", () => {
+describe("@nonnajs/svelte context & hooks", () => {
     it("NONNA_INJECTOR_KEY is a symbol", () => {
         assert.equal(typeof NONNA_INJECTOR_KEY, "symbol");
     });

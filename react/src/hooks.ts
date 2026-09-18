@@ -1,4 +1,4 @@
-import type {Token} from "@nonna/di";
+import type {Token} from "@nonnajs/di";
 import {useMemo} from "react";
 import {useInjector} from "./NonnaProvider";
 
@@ -14,7 +14,7 @@ import {useInjector} from "./NonnaProvider";
  *
  * @param token - The token to resolve.
  * @returns The resolved instance/value.
- * @throws Whatever `Injector.get()` throws - see its docs in `@nonna/di`.
+ * @throws Whatever `Injector.get()` throws - see its docs in `@nonnajs/di`.
  * @throws {@link Error} if called outside a {@link NonnaProvider}.
  *
  * @example

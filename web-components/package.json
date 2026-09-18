@@ -1,7 +1,7 @@
 {
-    "name": "@nonna/web-components",
+    "name": "@nonnajs/web-components",
     "version": "1.0.0",
-    "description": "Web Components & Custom Elements bindings for @nonna/di - W3C Context Protocol provider, <nonna-provider> element, requestInjection() helpers, and @inject() decorator for custom elements.",
+    "description": "Web Components & Custom Elements bindings for @nonnajs/di - W3C Context Protocol provider, <nonna-provider> element, requestInjection() helpers, and @inject() decorator for custom elements.",
     "author": "Manuel Santos <ney.br.santos@gmail.com>",
     "license": "MIT",
     "keywords": [
@@ -52,10 +52,10 @@
         "tsc": "tsc --noEmit"
     },
     "peerDependencies": {
-        "@nonna/di": "workspace:*"
+        "@nonnajs/di": "workspace:*"
     },
     "devDependencies": {
-        "@nonna/di": "workspace:*",
+        "@nonnajs/di": "workspace:*",
         "global-jsdom": "^25.0.0",
         "jsdom": "^25.0.0",
         "tsup": "^8.5.0"

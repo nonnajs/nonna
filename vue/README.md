@@ -1,6 +1,6 @@
-# `@nonna/vue`
+# `@nonnajs/vue`
 
-> Vue 3 bindings for [`@nonna/di`](../di) - a `<NonnaProvider>` component plus `useInjection()`/`useOptionalInjection()`/`useAllInjections()`/`useInjector()` composables, in the spirit of [`@nonna/react`](../react)/`inversify-vue`.
+> Vue 3 bindings for [`@nonnajs/di`](../di) - a `<NonnaProvider>` component plus `useInjection()`/`useOptionalInjection()`/`useAllInjections()`/`useInjector()` composables, in the spirit of [`@nonnajs/react`](../react)/`inversify-vue`.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -9,10 +9,10 @@
 ## Installation
 
 ```sh
-npm install @nonna/vue @nonna/di vue
+npm install @nonnajs/vue @nonnajs/di vue
 ```
 
-`@nonna/di` and `vue` are peer dependencies - bring your own versions (Vue `>=3.2`, any `@nonna/di` `1.x`).
+`@nonnajs/di` and `vue` are peer dependencies - bring your own versions (Vue `>=3.2`, any `@nonnajs/di` `1.x`).
 
 ---
 
@@ -21,7 +21,7 @@ npm install @nonna/vue @nonna/di vue
 ```vue
 <!-- App.vue -->
 <script setup lang="ts">
-import {useInjection} from "@nonna/vue";
+import {useInjection} from "@nonnajs/vue";
 import {UserService} from "./user.service";
 
 const userService = useInjection(UserService);
@@ -38,8 +38,8 @@ const users = userService.getUsers();
 ```ts
 // main.ts
 import {createApp} from "vue";
-import {Nonna} from "@nonna/di";
-import {NonnaProvider} from "@nonna/vue";
+import {Nonna} from "@nonnajs/di";
+import {NonnaProvider} from "@nonnajs/vue";
 import App from "./App.vue";
 
 // 1. Configure and boot the container once, at your app's entry point - not inside the tree.
@@ -55,7 +55,7 @@ createApp(RootApp).mount("#app");
 
 ## Why an already-built `Injector`?
 
-`NonnaProvider` takes a ready `Injector` - never a builder, and never a `Promise<Injector>`. Bootstrapping (`await Nonna.injector()...build()`) is async, and belongs in your app's own entry point, before `app.mount()` - not something the provider does on your behalf. This keeps `NonnaProvider` itself trivial (a single `provide()` call, no implicit loading state, no suspense boundary you didn't ask for) and matches how [`@nonna/react`](../react)'s `<NonnaProvider>` works: you own the container's lifecycle, the provider component just makes it available to the tree.
+`NonnaProvider` takes a ready `Injector` - never a builder, and never a `Promise<Injector>`. Bootstrapping (`await Nonna.injector()...build()`) is async, and belongs in your app's own entry point, before `app.mount()` - not something the provider does on your behalf. This keeps `NonnaProvider` itself trivial (a single `provide()` call, no implicit loading state, no suspense boundary you didn't ask for) and matches how [`@nonnajs/react`](../react)'s `<NonnaProvider>` works: you own the container's lifecycle, the provider component just makes it available to the tree.
 
 If you'd rather provide the injector at the app root instead of wrapping a component in your template, call Vue's own `app.provide()` - `NonnaProvider` is a thin convenience over exactly that (see its source), so either style interops fine; just make sure whichever you pick actually runs before any component calls `useInjector()`/`useInjection()`.
 
@@ -79,7 +79,7 @@ Resolves `token` via `injector.get(token)`. Throws exactly what `Injector.get()`
 const logger = useInjection(Logger);
 ```
 
-Unlike `@nonna/react`'s `useInjection()`, there's no memoization here to worry about: a Vue component's `setup()` runs exactly once per component instance (Vue re-renders by re-running the _render_ function, not `setup()`), so this already resolves at most once per instance for free.
+Unlike `@nonnajs/react`'s `useInjection()`, there's no memoization here to worry about: a Vue component's `setup()` runs exactly once per component instance (Vue re-renders by re-running the _render_ function, not `setup()`), so this already resolves at most once per instance for free.
 
 ### `useOptionalInjection<T>(token: Token<T>): T | undefined`
 
@@ -101,7 +101,7 @@ Resolves every provider registered for `token` (for `multi: true` tokens) - mirr
 
 ## Bundling For The Browser
 
-`@nonna/di`'s published bundle statically imports a handful of Node builtins (`node:async_hooks`, `node:fs/promises`, `node:path`, `node:url`) that a real browser bundler can't resolve on its own. If you're using Vite, [`@nonna/vite-plugin`](../vite-plugin) aliases them to browser-safe shims with a single `plugins: [nonna()]` entry.
+`@nonnajs/di`'s published bundle statically imports a handful of Node builtins (`node:async_hooks`, `node:fs/promises`, `node:path`, `node:url`) that a real browser bundler can't resolve on its own. If you're using Vite, [`@nonnajs/vite-plugin`](../vite-plugin) aliases them to browser-safe shims with a single `plugins: [nonna()]` entry.
 
 ---
 

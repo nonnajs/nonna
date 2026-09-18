@@ -1,0 +1,22 @@
+compiler:
+    - compiler/**/*
+di:
+    - di/**/*
+react:
+    - react/**/*
+vue:
+    - vue/**/*
+svelte:
+    - svelte/**/*
+web-components:
+    - web-components/**/*
+stencil:
+    - stencil/**/*
+vite-plugin:
+    - vite-plugin/**/*
+samples:
+    - samples/**/*
+cicd:
+    - .github/workflows/**/*
+docs:
+    - "**/*.md"

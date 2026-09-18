@@ -1,4 +1,4 @@
-import type {Token} from "@nonna/di";
+import type {Token} from "@nonnajs/di";
 import {useInjector} from "./context";
 
 /**
@@ -12,13 +12,13 @@ import {useInjector} from "./context";
  *
  * @param token - The token to resolve.
  * @returns The resolved instance/value.
- * @throws Whatever `Injector.get()` throws - see its docs in `@nonna/di`.
+ * @throws Whatever `Injector.get()` throws - see its docs in `@nonnajs/di`.
  * @throws {@link Error} if called outside a component with an active injector context.
  *
  * @example
  * ```svelte
  * <script lang="ts">
- * import {useInjection} from "@nonna/svelte";
+ * import {useInjection} from "@nonnajs/svelte";
  * import {UserService} from "./user.service";
  *
  * const userService = useInjection(UserService);
