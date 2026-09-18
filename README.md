@@ -13,7 +13,7 @@
 
 **Nonna** is a high-performance Dependency Injection framework engineered from the ground up to be **completely independent** of specific runtimes, servers, or web frameworks. It runs identically on **Node.js**, **Deno**, **Bun**, and Edge platforms (Cloudflare Workers, Fastly Compute).
 
-![Nonna Architecture Diagram](./nonna-architecture.svg)
+![Nonna Architecture Diagram](./docs/nonna-architecture.svg)
 
 ### Key Architectural Pillars
 
