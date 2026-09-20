@@ -10,6 +10,7 @@
     "samples/sample-deno-http": "git@github.com:nonnajs/sample-deno-http.git",
     "samples/sample-deno": "git@github.com:nonnajs/sample-deno.git",
     "samples/sample-bun-http": "git@github.com:nonnajs/sample-bun-http.git",
-    "samples/sample-bun": "git@github.com:nonnajs/sample-bun.git"
+    "samples/sample-bun": "git@github.com:nonnajs/sample-bun.git",
+    "website": "git@github.com:nonnajs/nonna-website.git"
   }
 }
