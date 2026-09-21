@@ -7,6 +7,11 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B%20|%2020%2B%20|%2022%2B-green.svg)](https://nodejs.org/)
 [![Deno](https://img.shields.io/badge/Deno-1.40%2B%20|%202.x-black.svg)](https://deno.land/)
 [![Bun](https://img.shields.io/badge/Bun-1.0%2B-orange.svg)](https://bun.sh/)
+[![React](https://img.shields.io/badge/React-16.8%2B-61DAFB.svg)](https://react.dev/)
+[![Vue](https://img.shields.io/badge/Vue-3.2%2B-4FC08D.svg)](https://vuejs.org/)
+[![Svelte](https://img.shields.io/badge/Svelte-4%2B%20|%205%2B-FF3E00.svg)](https://svelte.dev/)
+[![Web Components](https://img.shields.io/badge/Web%20Components-W3C%20Context%20Protocol-29ABE2.svg)](https://www.webcomponents.org/)
+[![Stencil](https://img.shields.io/badge/Stencil-4%2B-4B7AFF.svg)](https://stenciljs.com/)
 
 ---
 
