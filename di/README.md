@@ -8,7 +8,7 @@
 
 `@nonnajs/di` is the micro-runtime core of the **Nonna** DI framework. It provides IoC container management, 5 provider types, 3 lifecycle scopes (including isolated asynchronous request scoping), reverse-order teardown, and container inspection with **zero external dependencies** and **no `reflect-metadata`**.
 
-![Nonna Architecture Diagram](../nonna-architecture.svg)
+![Nonna Architecture Diagram](../docs/nonna-architecture.svg)
 
 ---
 
