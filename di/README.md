@@ -393,6 +393,7 @@ Runnable sample applications demonstrating `@nonnajs/di` across different JavaSc
 
 -   **[`sample-node`](https://github.com/nonnajs/sample-node)**: Pure Node.js application demonstrating `@nonnajs/di`, AOT compilation with `@nonnajs/compiler`, request scopes, optional injection, and lifecycle hooks (`onDestroy`).
 -   **[`sample-node-http`](https://github.com/nonnajs/sample-node-http)**: Pure Node.js HTTP server application using native `node:http`, request-scoped controllers and router, and AOT compilation.
+-   **[`sample-nodeboot-http`](https://github.com/nonnajs/sample-nodeboot-http)**: [Node-Boot](https://github.com/nodejs-boot/node-boot) REST application on native `node:http` that uses `@nonnajs/di` as its IoC container, with AOT component scan, OpenAPI and actuator.
 -   **[`sample-deno`](https://github.com/nonnajs/sample-deno)**: Pure Deno application demonstrating `@nonnajs/di` in Deno runtime, async database providers, request scoping, and Deno test execution.
 -   **[`sample-deno-http`](https://github.com/nonnajs/sample-deno-http)**: Deno HTTP server sample using Hono, request-scoped middleware, controllers, and Web Standards Fetch API.
 -   **[`sample-bun`](https://github.com/nonnajs/sample-bun)**: Pure Bun application demonstrating `@nonnajs/di` in Bun runtime, multi-provider plugins, request scoping, and Bun test execution.

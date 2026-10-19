@@ -5,3 +5,4 @@ export * from "./scanner";
 export * from "./program";
 export * from "./diagnostics";
 export * from "./module-resolution";
+export * from "./config";

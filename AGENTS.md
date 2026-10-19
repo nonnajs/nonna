@@ -85,7 +85,7 @@ directly, since packages import each other's built `dist/` output via `workspace
 
 ## Samples are separate GitHub repos, not a monorepo package
 
-Every directory under `samples/` (`sample-node`, `sample-node-http`, `sample-deno`,
+Every directory under `samples/` (`sample-node`, `sample-node-http`, `sample-nodeboot-http`, `sample-deno`,
 `sample-deno-http`, `sample-bun`, `sample-bun-http`, `sample-react`, `sample-vue`,
 `sample-svelte`, `sample-web-components`, `sample-stencil`) is its own git repository under the
 `nonnajs` GitHub org (e.g. `github.com/nonnajs/sample-node`), checked out inside this workspace for

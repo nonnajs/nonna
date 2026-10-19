@@ -21,8 +21,14 @@ export interface CompileOptions {
     project: string;
     /** Where to write the generated aggregator file. */
     outputFile: string;
-    /** Module specifier the generated file imports `defineDependencies` from. */
+    /** Module specifier of the `@nonnajs/di` package whose decorators are recognized. Defaults to `@nonnajs/di`. */
     injectorModuleSpecifier?: string;
+    /**
+     * Module specifier the generated file imports `defineDependencies` from. Defaults to
+     * `injectorModuleSpecifier`. A framework that re-exports `defineDependencies` can point this at itself, so
+     * applications don't need a direct `@nonnajs/di` dependency.
+     */
+    generatedImportSpecifier?: string;
     /** Identifies which Program source file(s) are "the @nonnajs/di module" - defaults to node_modules resolution. */
     matchInjectorModule?: (fileName: string) => boolean;
     /**
@@ -110,7 +116,7 @@ export function compile(options: CompileOptions): CompileResult {
         return {success: false, diagnostics};
     }
 
-    const source = generateAggregatorSource(entries, injectorModuleSpecifier);
+    const source = generateAggregatorSource(entries, options.generatedImportSpecifier ?? injectorModuleSpecifier);
     ts.sys.writeFile(options.outputFile, source);
 
     return {success: true, outputFile: options.outputFile, classCount: entries.length};

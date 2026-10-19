@@ -62,6 +62,26 @@ For each parameter in an `@Injectable()` or `@Service()` class constructor:
 }
 ```
 
+### Frameworks built on `@nonnajs/di`
+
+A framework teaches the compiler about its own decorators (e.g. a `@Component()` that wraps `@Injectable()`) by
+shipping a `.nonna.json` in its published package (add it to `files`). `nonna-compile` reads the `.nonna.json` of every
+package listed in the project's `dependencies`, `devDependencies` and `peerDependencies`, so applications need no
+configuration of their own:
+
+```json
+{
+    "injectableDecorators": ["@my-framework/core#Component", "@my-framework/core#Service"],
+    "injectDecorators": ["@my-framework/di#Inject"],
+    "optionalDecorators": [],
+    "defineDependenciesModule": "@my-framework/di"
+}
+```
+
+Decorator entries are `"<module>#<exportName>"` strings. `defineDependenciesModule` is the module the generated file
+imports `defineDependencies` from; it must re-export it, which lets applications avoid a direct `@nonnajs/di`
+dependency. A `.nonna.json` in the project itself is merged on top, for app-specific additions.
+
 ### CLI Options
 
 | Flag               | Short | Default                                             | Description                                 |

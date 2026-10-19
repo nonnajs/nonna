@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
 
@@ -39,15 +40,55 @@ const PRIMITIVE_FLAGS =
     ts.TypeFlags.Unknown |
     ts.TypeFlags.Any;
 
-function moduleSpecifierForSourceFile(sourceFile: ts.SourceFile, fromDir: string): string {
+/** Walks up from `dir` to the nearest `package.json` that has a `name`, returning its directory and name. */
+function findOwningPackage(dir: string): {root: string; name: string} | undefined {
+    let current = dir;
+    for (;;) {
+        const manifest = path.join(current, "package.json");
+        if (fs.existsSync(manifest)) {
+            try {
+                const name = (JSON.parse(fs.readFileSync(manifest, "utf8")) as {name?: unknown}).name;
+                if (typeof name === "string" && name.length > 0) return {root: current, name};
+            } catch {
+                // unreadable manifest - keep walking up
+            }
+        }
+        const parent = path.dirname(current);
+        if (parent === current) return undefined;
+        current = parent;
+    }
+}
+
+function isInside(child: string, parent: string): boolean {
+    const rel = path.relative(parent, child);
+    return rel === "" || (!rel.startsWith("..") && !path.isAbsolute(rel));
+}
+
+/**
+ * Computes the specifier the generated file uses to import the class declared in `sourceFile`.
+ *
+ * - Installed packages use the package name. The LAST `/node_modules/` segment is used, because
+ *   pnpm's real paths nest (`node_modules/.pnpm/pkg@1.0.0/node_modules/pkg/...`).
+ * - Workspace-linked packages resolve to their real path (e.g. `/repo/packages/x/dist/index.d.ts`),
+ *   which has no `node_modules` segment at all; they're identified by the nearest `package.json`
+ *   name when the file lives outside the package that owns the generated file.
+ * - Everything else is imported relatively.
+ */
+export function moduleSpecifierForSourceFile(sourceFile: ts.SourceFile, fromDir: string): string {
     const fileName = sourceFile.fileName;
     const nodeModulesMarker = "/node_modules/";
-    const nmIndex = fileName.indexOf(nodeModulesMarker);
+    const nmIndex = fileName.lastIndexOf(nodeModulesMarker);
     if (nmIndex !== -1) {
         const afterNm = fileName.slice(nmIndex + nodeModulesMarker.length);
         const segments = afterNm.split("/");
         return segments[0]!.startsWith("@") ? `${segments[0]}/${segments[1]}` : segments[0]!;
     }
+
+    const owner = findOwningPackage(path.dirname(fileName));
+    if (owner && !isInside(fromDir, owner.root)) {
+        return owner.name;
+    }
+
     let rel = path.relative(fromDir, fileName).replace(/\.[tj]sx?$/, "");
     if (!rel.startsWith(".")) rel = `./${rel}`;
     return rel.split(path.sep).join("/");

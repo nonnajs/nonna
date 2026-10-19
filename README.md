@@ -87,6 +87,7 @@ di/
 └── samples/                # Runnable sample applications
     ├── sample-node/        # Pure Node.js + @nonnajs/compiler AOT
     ├── sample-node-http/   # Node.js native node:http server + request scope
+    ├── sample-nodeboot-http/ # Node-Boot on node:http with Nonna as the IoC container
     ├── sample-deno/        # Pure Deno ESM + async factory providers
     ├── sample-deno-http/   # Deno + Hono HTTP server
     ├── sample-bun/         # Pure Bun + multi-provider plugins
@@ -589,6 +590,7 @@ Runnable sample applications demonstrating `@nonnajs/di` across different JavaSc
 | ------------------------------------------------------------------------------- | ----------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [**`sample-node`**](https://github.com/nonnajs/sample-node)                     | Node.js (18+)     | CLI / Pure App                              | `@nonnajs/compiler` AOT, request scopes, optional deps, `OnDestroy`                                       | [GitHub](https://github.com/nonnajs/sample-node)           |
 | [**`sample-node-http`**](https://github.com/nonnajs/sample-node-http)           | Node.js (18+)     | Native `node:http`                          | Zero-framework HTTP server, request scoping per incoming request, router                                  | [GitHub](https://github.com/nonnajs/sample-node-http)      |
+| [**`sample-nodeboot-http`**](https://github.com/nonnajs/sample-nodeboot-http)   | Node.js (18+)     | Node-Boot on native `node:http`             | Nonna as Node-Boot `IocContainer`, AOT component scan, OpenAPI/Swagger, actuator                          | [GitHub](https://github.com/nonnajs/sample-nodeboot-http)  |
 | [**`sample-deno`**](https://github.com/nonnajs/sample-deno)                     | Deno (1.40+, 2.x) | CLI / Pure App                              | Deno ESM, async database factory provider, task runner scopes                                             | [GitHub](https://github.com/nonnajs/sample-deno)           |
 | [**`sample-deno-http`**](https://github.com/nonnajs/sample-deno-http)           | Deno (1.40+, 2.x) | Hono / `Deno.serve`                         | Web Standards HTTP, middleware-driven request scopes, controllers                                         | [GitHub](https://github.com/nonnajs/sample-deno-http)      |
 | [**`sample-bun`**](https://github.com/nonnajs/sample-bun)                       | Bun (1.0+)        | CLI / Pure App                              | Multi-provider plugin architecture, request scoping, `Bun.test`                                           | [GitHub](https://github.com/nonnajs/sample-bun)            |

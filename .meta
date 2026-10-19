@@ -6,6 +6,7 @@
     "samples/sample-stencil": "git@github.com:nonnajs/sample-stencil.git",
     "samples/sample-react": "git@github.com:nonnajs/sample-react.git",
     "samples/sample-node-http": "git@github.com:nonnajs/sample-node-http.git",
+    "samples/sample-nodeboot-http": "git@github.com:nonnajs/sample-nodeboot-http.git",
     "samples/sample-node": "git@github.com:nonnajs/sample-node.git",
     "samples/sample-deno-http": "git@github.com:nonnajs/sample-deno-http.git",
     "samples/sample-deno": "git@github.com:nonnajs/sample-deno.git",

@@ -3,6 +3,7 @@
 import path from "node:path";
 
 import {compile} from "./compile";
+import {compileOptionsFromConfig, loadNonnaConfig} from "./config";
 import {formatDiagnostics} from "./diagnostics";
 
 function parseArgs(argv: readonly string[]): {project: string; outputFile: string} {
@@ -24,7 +25,11 @@ function main(): void {
     const {project, outputFile} = parseArgs(process.argv.slice(2));
 
     console.info("===================== Nonna Compiler =====================");
-    const result = compile({project, outputFile});
+    const result = compile({
+        project,
+        outputFile,
+        ...compileOptionsFromConfig(loadNonnaConfig(path.dirname(project))),
+    });
 
     if (!result.success) {
         console.error(formatDiagnostics(result.diagnostics));
