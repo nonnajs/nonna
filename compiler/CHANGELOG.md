@@ -1,5 +1,11 @@
 # @nonnajs/compiler
 
+## 2.0.0
+
+### Major Changes
+
+-   feb3d69: Extend nonna to allow custom decorator bindings for AOT compiler
+
 ## 1.1.1
 
 ### Patch Changes

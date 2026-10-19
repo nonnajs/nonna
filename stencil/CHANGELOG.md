@@ -1,5 +1,13 @@
 # @nonnajs/stencil
 
+## 3.0.0
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @nonnajs/di@2.0.0
+    -   @nonnajs/web-components@3.0.0
+
 ## 2.0.1
 
 ### Patch Changes
